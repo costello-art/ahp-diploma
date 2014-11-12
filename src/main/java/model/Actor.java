@@ -20,12 +20,12 @@ public class Actor implements IGlobalTargetObject {
     /**
      * Актор (вчитель, системний аналітик тощо)
      * @param name назва цього актора
-     * @param targetCount загальна кількість акторів в мети
+     * @param targetCount кількість цілей в цього актора
      */
     public Actor(String name, int targetCount) {
         this.actorName = name;
         this.targetCount = targetCount;
-
+        matrix = new float[targetCount][targetCount];
     }
 
     public void addTarget(String name) {
