@@ -33,7 +33,7 @@ public class GlobalTarget implements IGlobalTargetObject {
         }
     }
 
-    public void addActor(String name) {
+    public void addActor(String name, ArrayList<String> targets) {
         Actor actor = new Actor(name, actorCount);
         actors.add(actor);
     }

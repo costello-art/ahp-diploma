@@ -9,7 +9,6 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -31,7 +30,7 @@ public class AppMain extends JFrame {
     private JPanel panelNames;
     private JButton buttonNextActor;
     private JLabel labelActorName;
-    private JSpinner spinnerActorTargetCount;
+
     private JPanel panelTargets;
     private JButton buttonShowInputActorsMatrix;
     private JPanel panelActorMatrixInput;
@@ -60,11 +59,11 @@ public class AppMain extends JFrame {
         panelTargets.setLayout(migLayout);
         panelActorMatrix.setLayout(migLayout);
 
-        //onActorsNamesCountChanged(2);
+        onActorsNamesCountChanged(2);
 
-        panelBasicDataInput.setVisible(false);
-        panelTargetInput.setVisible(false);
-        panelActorMatrixInput.setVisible(true);
+        //panelBasicDataInput.setVisible(false);
+        //panelTargetInput.setVisible(false);
+        //panelActorMatrixInput.setVisible(true);
 
         initTable();
     }
@@ -87,18 +86,16 @@ public class AppMain extends JFrame {
                 }
             }
         }
-        
+
         dataModel.setValueAt(1, 2, 2);
 
         panelActorMatrix.validate();
         panelActorMatrix.repaint();
     }
-    
+
     private void createUIComponents() {
         spinnerActorCount = new JSpinner(new SpinnerNumberModel(2, 2, 9, 1));
-        spinnerActorTargetCount = new JSpinner(new SpinnerNumberModel(2, 2, 9, 1));
         spinnerActorCount.addChangeListener(new SpinnerActionAddActorNamesFileds());
-        spinnerActorTargetCount.addChangeListener(new SpinnerActionAddTargetNamesFileds());
     }
 
     private class SpinnerActionAddActorNamesFileds implements ChangeListener {
@@ -113,64 +110,31 @@ public class AppMain extends JFrame {
         panelNames.removeAll();
 
         for (int i = 0; i < count; i++) {
-            JTextField textField = new JTextField();
-            JLabel label = new JLabel();
-            label.setName("label_" + i);
-            label.setText("Назва актора #" + i);
-            textField.setName("actorName" + i);
-            textField.setPreferredSize(new Dimension(100, 25));
-            textField.setVisible(true);
-            label.setVisible(true);
-            panelNames.add(label);
-            panelNames.add(textField, "wrap");
-            panelNames.validate();
-            panelNames.repaint();
+            ActorTargetBox atb = new ActorTargetBox(i);
+            panelNames.add(atb, "wrap");
         }
-    }
 
-    private void onTargetNamesCountChanged(Integer count) {
-        panelTargets.removeAll();
-
-        for (int i = 0; i < count; i++) {
-            JTextField textField = new JTextField();
-            JLabel label = new JLabel();
-            label.setName("label_" + i);
-            label.setText("Назва цілі #" + i);
-            textField.setName("targetName" + i);
-            textField.setPreferredSize(new Dimension(100, 25));
-            textField.setVisible(true);
-            label.setVisible(true);
-            panelTargets.add(label);
-            panelTargets.add(textField, "wrap");
-            panelTargets.validate();
-            panelTargets.repaint();
-        }
+        panelNames.validate();
+        panelNames.repaint();
     }
 
     private class ProcessBasicUserInput implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-
-            onTargetNamesCountChanged(2);
-
             Integer count = (Integer) spinnerActorCount.getValue();
             globalTarget = new GlobalTarget(textTargetName.getText(), count);
 
             for (int i = 0; i < count; i++) {
                 for (Component c : panelNames.getComponents()) {
-                    if (c.getName().equals("actorName" + i)) {
-                        JTextField nameField = (JTextField) c;
-                        globalTarget.addActor(nameField.getText());
-
-                        System.out.println("added name " + nameField.getText());
+                    if (c.getName().equals("actorTargetBox" + i)) {
+                        ActorTargetBox box = (ActorTargetBox) c;
+                        globalTarget.addActor(box.getActorName(), box.getTargets());
                     }
                 }
             }
 
             panelBasicDataInput.setVisible(false);
             panelTargetInput.setVisible(true);
-
-            onTargetInputVisible(0);
         }
     }
 
@@ -185,7 +149,7 @@ public class AppMain extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            Integer targetCount = (Integer) spinnerActorTargetCount.getValue();
+            Integer targetCount = 0;//(Integer) spinnerActorTargetCount.getValue();
 
             for (int currentTarget = 0; currentTarget < targetCount; currentTarget++) {
                 for (Component c : panelTargets.getComponents()) {
@@ -208,14 +172,6 @@ public class AppMain extends JFrame {
         }
     }
 
-    private class SpinnerActionAddTargetNamesFileds implements ChangeListener {
-        @Override
-        public void stateChanged(ChangeEvent e) {
-            Integer count = (Integer) (spinnerActorTargetCount.getValue());
-            onTargetNamesCountChanged(count);
-        }
-    }
-
     private class ProcessActorsMatrixInput implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -225,9 +181,9 @@ public class AppMain extends JFrame {
 
     private class TableChangesListener implements TableModelListener {
         /**
-         *  нулів не можна вводити (ніде!)
-         *  діагональні елементи та нижче не можна вводити
-         * */
+         * нулів не можна вводити (ніде!)
+         * діагональні елементи та нижче не можна вводити
+         */
 
         @Override
         public void tableChanged(TableModelEvent e) {
@@ -251,7 +207,7 @@ public class AppMain extends JFrame {
 
             System.out.println("table has been changed!");
             System.out.println(String.format("%d:%d", row, col));
-            
+
         }
     }
 }
