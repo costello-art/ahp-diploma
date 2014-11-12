@@ -6,40 +6,43 @@ import java.util.ArrayList;
  * Created by Sviat on 12.11.14.
  */
 public class Actor implements IGlobalTargetObject {
-    private String name;
+    private String actorName;
 
-    private int size;
+    private ArrayList<String> targetNames;
 
-    private ArrayList<ActorTarget> targets;
+    private int targetCount;
+
+    /**
+     * Матриця оцінок цілей актора
+     */
+    private float[][] matrix;
 
     /**
      * Актор (вчитель, системний аналітик тощо)
      * @param name назва цього актора
-     * @param actorCount загальна кількість акторів в мети
+     * @param targetCount загальна кількість акторів в мети
      */
-    public Actor(String name, int actorCount) {
-        this.name = name;
-        this.size = actorCount;
+    public Actor(String name, int targetCount) {
+        this.actorName = name;
+        this.targetCount = targetCount;
 
-        targets = new ArrayList<>();
     }
 
     public void addTarget(String name) {
-        ActorTarget target = new ActorTarget(name, size);
-        targets.add(target);
+        targetNames.add(name);
     }
 
     public ArrayList<ActorTarget> getTargets() {
-        return targets;
+        return null;
     }
 
     @Override
     public String getName() {
-        return name;
+        return actorName;
     }
 
     @Override
     public void setName(String name) {
-        this.name = name;
+        this.actorName = name;
     }
 }

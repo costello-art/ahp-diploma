@@ -16,11 +16,6 @@ public class ActorTarget implements IGlobalTargetObject{
     private String name;
 
     /**
-     * Матриця оцінок цілей актора
-     */
-    private float[][] matrix;
-
-    /**
      * Ціль актора
      * @param name назва цілі
      * @param targetCount кількість цілей для поточного актора
@@ -28,7 +23,6 @@ public class ActorTarget implements IGlobalTargetObject{
     public ActorTarget(String name, int targetCount) {
         this.name = name;
         this.targetCount = targetCount;
-        matrix = new float[targetCount][targetCount];
     }
 
     @Override
