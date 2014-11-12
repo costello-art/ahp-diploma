@@ -157,7 +157,6 @@ public class AppMain extends JFrame {
                         JTextField targetField = (JTextField) c;
                         globalTarget.getActors().get(currentActor).addTarget(targetField.getText());
                         targetField.setText("");
-                        System.out.println(globalTarget.getActors().get(currentActor).getTargets().get(0).getName());
                     }
                 }
             }

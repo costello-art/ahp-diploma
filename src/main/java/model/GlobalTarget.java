@@ -34,8 +34,9 @@ public class GlobalTarget implements IGlobalTargetObject {
     }
 
     public void addActor(String name, ArrayList<String> targets) {
-        Actor actor = new Actor(name, actorCount);
+        Actor actor = new Actor(name, actorCount, targets);
         actors.add(actor);
+
     }
 
     public ArrayList<Actor> getActors() {

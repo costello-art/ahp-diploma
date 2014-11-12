@@ -21,10 +21,12 @@ public class Actor implements IGlobalTargetObject {
      * Актор (вчитель, системний аналітик тощо)
      * @param name назва цього актора
      * @param targetCount кількість цілей в цього актора
+     * @param targets
      */
-    public Actor(String name, int targetCount) {
+    public Actor(String name, int targetCount, ArrayList<String> targets) {
         this.actorName = name;
         this.targetCount = targetCount;
+        targetNames = targets;
         matrix = new float[targetCount][targetCount];
     }
 
@@ -32,8 +34,8 @@ public class Actor implements IGlobalTargetObject {
         targetNames.add(name);
     }
 
-    public ArrayList<ActorTarget> getTargets() {
-        return null;
+    public ArrayList<String> getTargets() {
+        return targetNames;
     }
 
     @Override
