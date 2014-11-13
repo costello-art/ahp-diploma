@@ -72,4 +72,16 @@ public class ActorTargetBox extends JPanel {
 
         return targetList;
     }
+
+    public void setTargetsText(String text) {
+        textTargets.setText(text);
+    }
+
+    public void setTargetsCount(int count) {
+        targetCount.setValue(count);
+    }
+
+    public void setActorName(String name) {
+        textActorName.setText(name);
+    }
 }
