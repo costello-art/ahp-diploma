@@ -32,7 +32,6 @@ public class AppMain extends JFrame {
     private JButton buttonMoveToStep3;
     private JLabel labelGlobalTarget;
     private JPanel panelStep3;
-    private JButton buttonNextActorInput;
     private JPanel panelActorTargets;
     private JButton buttonDoCalculations;
     private JLabel labelActorsTargetsInput;
@@ -51,7 +50,6 @@ public class AppMain extends JFrame {
     public AppMain() throws HeadlessException {
         buttonMoveToStep2.addActionListener(new ProcessActorNamesInput());
         buttonMoveToStep3.addActionListener(new ProcessGlobalMatrixInput());
-        buttonNextActor.addActionListener(new ProcessNextActorTargetInput());
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -127,16 +125,17 @@ public class AppMain extends JFrame {
     }
 
     private class ProcessNextActorTargetInput implements ActionListener {
-        int actorCount = globalTarget.getActorCount();
-        int currentActor = 0;
+        int count = globalTarget.getActorCount();
+        int currentActor = 1;
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (currentActor > actorCount) {
+            if (currentActor >= count) {
                 labelActorsTargetsInput.setText("Цілі для всіх акторів вже введено.");
                 return;
             }
 
+            labelActorsTargetsInput.setText(String.format("<html>Введіть матрицю цілей для актора<b>\"%s\"</b></html>", globalTarget.getActorsNames().get(currentActor)));
             globalTarget.getActors().get(currentActor).setMatrix(tableWithTargets.getMatrix());
             currentActor++;
         }
@@ -152,9 +151,11 @@ public class AppMain extends JFrame {
     }
 
     private void moveToStep3() {
+        buttonNextActor.addActionListener(new ProcessNextActorTargetInput());
+
         panelStep3.setVisible(true);
         labelActorsTargetsInput.setText(String.format("<html>Введіть матрицю цілей для актора<b>\"%s\"</b></html>", globalTarget.getActorsNames().get(0)));
-        RTable tableWithTargets = new RTable(globalTarget.getActors().get(0).getTargets().size());
+        tableWithTargets = new RTable(globalTarget.getActors().get(0).getTargets().size());
         tableWithTargets.setHeaders(globalTarget.getActors().get(0).getTargets());
 
         panelActorTargets.add(tableWithTargets, "wrap");
