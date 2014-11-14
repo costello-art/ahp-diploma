@@ -47,4 +47,12 @@ public class Actor implements IGlobalTargetObject {
     public void setName(String name) {
         this.actorName = name;
     }
+
+    public void setMatrix(float[][] matrix) {
+        this.matrix = matrix;
+    }
+
+    public float[][] getMatrix() {
+        return matrix;
+    }
 }

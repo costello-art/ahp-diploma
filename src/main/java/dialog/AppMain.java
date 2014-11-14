@@ -50,9 +50,8 @@ public class AppMain extends JFrame {
 
     public AppMain() throws HeadlessException {
         buttonMoveToStep2.addActionListener(new ProcessActorNamesInput());
-        //buttonMoveToStep2.addActionListener(new ProcessGlobalMatrixInput());
         buttonMoveToStep3.addActionListener(new ProcessGlobalMatrixInput());
-      //  buttonNextActor.addActionListener(new ProcessNextActorTargetInput());
+        buttonNextActor.addActionListener(new ProcessNextActorTargetInput());
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -127,36 +126,19 @@ public class AppMain extends JFrame {
         panelGlobalTargets.repaint();
     }
 
-    private void onTargetInputVisible(int actorIndex) {
-        String firstActorName = globalTarget.getActors().get(actorIndex).getName();
-        labelActorName.setText(firstActorName);
-    }
-
     private class ProcessNextActorTargetInput implements ActionListener {
         int actorCount = globalTarget.getActorCount();
-        int currentActor = 1;
+        int currentActor = 0;
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            Integer targetCount = 0;//(Integer) spinnerActorTargetCount.getValue();
-
-            for (int currentTarget = 0; currentTarget < targetCount; currentTarget++) {
-                for (Component c : panelGlobalTargets.getComponents()) {
-                    if (c.getName().equals("targetName" + currentTarget)) {
-                        JTextField targetField = (JTextField) c;
-                        globalTarget.getActors().get(currentActor).addTarget(targetField.getText());
-                        targetField.setText("");
-                    }
-                }
-            }
-
-            currentActor++;
-            if (currentActor >= actorCount) {
-                buttonNextActor.setText("Всі дані введено");
+            if (currentActor > actorCount) {
+                labelActorsTargetsInput.setText("Цілі для всіх акторів вже введено.");
                 return;
             }
 
-            onTargetInputVisible(currentActor);
+            globalTarget.getActors().get(currentActor).setMatrix(tableWithTargets.getMatrix());
+            currentActor++;
         }
     }
 
