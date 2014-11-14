@@ -6,9 +6,6 @@ import net.miginfocom.swing.MigLayout;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,17 +24,19 @@ public class AppMain extends JFrame {
     private JTextField textTargetName;
     private JButton buttonProcessData;
     private JSpinner spinnerActorCount;
-    private JPanel panelNames;
+    private JPanel panelActors;
     private JButton buttonNextActor;
     private JLabel labelActorName;
 
     private JPanel panelTargets;
     private JButton buttonShowInputActorsMatrix;
-    private JPanel panelActorMatrixInput;
-    private JPanel panelActorMatrix;
+    private JLabel labelTargetInputTitle;
+    private JPanel panelActorTargetInput;
+    private JButton buttonNextActorInput;
+    private JPanel panelActorTargetMatrixInput;
+    private JButton buttonDoCalculations;
     private GlobalTarget globalTarget;
-    private JTable table;
-    private TableChangesListener tableModel;
+    private RTable tableWithTargets;
 
     public static void main(String[] args) {
         AppMain main = new AppMain();
@@ -49,48 +48,19 @@ public class AppMain extends JFrame {
     }
 
     public AppMain() throws HeadlessException {
-        buttonProcessData.addActionListener(new ProcessBasicUserInput());
+        buttonProcessData.addActionListener(new ProcessActorInput());
         buttonNextActor.addActionListener(new ProcessNextActorTargetInput());
         buttonShowInputActorsMatrix.addActionListener(new ProcessActorsMatrixInput());
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        panelNames.setLayout(migLayout);
+        panelActors.setLayout(migLayout);
         panelTargets.setLayout(migLayout);
-        panelActorMatrix.setLayout(migLayout);
 
-        onActorsNamesCountChanged(2);
+        onActorsCountChanged(2);
 
-        //panelBasicDataInput.setVisible(false);
-        //panelTargetInput.setVisible(false);
-        //panelActorMatrixInput.setVisible(true);
-
-        initTable();
-    }
-
-    private void initTable() {
-        table = new JTable();
-        DefaultTableModel dataModel = new DefaultTableModel(4, 4);
-        table.setModel(dataModel);
-        panelActorMatrix.add(table);
-
-        tableModel = new TableChangesListener();
-        table.getModel().addTableModelListener(tableModel);
-
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                if (i == j) {
-                    dataModel.setValueAt(1, i, j);
-                } else {
-                    dataModel.setValueAt(0, i, j);
-                }
-            }
-        }
-
-        dataModel.setValueAt(1, 2, 2);
-
-        panelActorMatrix.validate();
-        panelActorMatrix.repaint();
+        panelBasicDataInput.setVisible(false);
+        panelTargetInput.setVisible(false);
     }
 
     private void createUIComponents() {
@@ -102,30 +72,30 @@ public class AppMain extends JFrame {
         @Override
         public void stateChanged(ChangeEvent e) {
             Integer count = (Integer) (spinnerActorCount.getValue());
-            onActorsNamesCountChanged(count);
+            onActorsCountChanged(count);
         }
     }
 
-    private void onActorsNamesCountChanged(Integer count) {
-        panelNames.removeAll();
+    private void onActorsCountChanged(Integer count) {
+        panelActors.removeAll();
 
         for (int i = 0; i < count; i++) {
             ActorTargetBox atb = new ActorTargetBox(i);
-            panelNames.add(atb, "wrap");
+            panelActors.add(atb, "wrap");
         }
 
-        panelNames.validate();
-        panelNames.repaint();
+        panelActors.validate();
+        panelActors.repaint();
     }
 
-    private class ProcessBasicUserInput implements ActionListener {
+    private class ProcessActorInput implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             Integer count = (Integer) spinnerActorCount.getValue();
             globalTarget = new GlobalTarget(textTargetName.getText(), count);
 
             for (int i = 0; i < count; i++) {
-                for (Component c : panelNames.getComponents()) {
+                for (Component c : panelActors.getComponents()) {
                     if (c.getName().equals("actorTargetBox" + i)) {
                         ActorTargetBox box = (ActorTargetBox) c;
                         globalTarget.addActor(box.getActorName(), box.getTargets());
@@ -134,8 +104,21 @@ public class AppMain extends JFrame {
             }
 
             panelBasicDataInput.setVisible(false);
-            panelTargetInput.setVisible(true);
+            moveToTargetMatrixInput();
         }
+    }
+
+    private void moveToTargetMatrixInput() {
+        panelTargetInput.setVisible(true);
+
+        labelTargetInputTitle.setText("Введіть матрицю цілей для всіх акторів. Матриця має розмір " + globalTarget.getActorCount());
+
+        tableWithTargets = new RTable(globalTarget.getActorCount());
+        tableWithTargets.setHeaders(globalTarget.getActorsNames());
+        panelTargets.add(tableWithTargets, "wrap");
+
+        panelTargets.validate();
+        panelTargets.repaint();
     }
 
     private void onTargetInputVisible(int actorIndex) {
@@ -144,8 +127,8 @@ public class AppMain extends JFrame {
     }
 
     private class ProcessNextActorTargetInput implements ActionListener {
-        int actorCount = (Integer) spinnerActorCount.getValue();
-        int currentActor = 0;
+        int actorCount = globalTarget.getActorCount();
+        int currentActor = 1;
 
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -174,39 +157,12 @@ public class AppMain extends JFrame {
     private class ProcessActorsMatrixInput implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-
-        }
-    }
-
-    private class TableChangesListener implements TableModelListener {
-        /**
-         * нулів не можна вводити (ніде!)
-         * діагональні елементи та нижче не можна вводити
-         */
-
-        @Override
-        public void tableChanged(TableModelEvent e) {
-            int row = table.getSelectedRow();
-            int col = table.getSelectedColumn();
-
-            if (row == -1 || col == -1) {
-                return;
-            }
-
-            if (row == col) {
-                System.out.println("error: you've changed diag element");
-                return;
-            }
-
-            float value = Float.parseFloat((String) table.getModel().getValueAt(row, col));
-
-            table.getModel().removeTableModelListener(tableModel);
-            table.getModel().setValueAt(1 / value, col, row);
-            table.getModel().addTableModelListener(tableModel);
-
-            System.out.println("table has been changed!");
-            System.out.println(String.format("%d:%d", row, col));
-
+            panelTargets.removeAll();
+            labelTargetInputTitle.setText(String.format("<html>Введіть матрицю цілей для актора<b>\"%s\"</b></html>", globalTarget.getActorsNames().get(0)));
+            tableWithTargets = new RTable(globalTarget.getActors().get(0).getTargets().size());
+            panelTargets.add(tableWithTargets);
+            panelTargets.validate();
+            panelTargets.repaint();
         }
     }
 }
