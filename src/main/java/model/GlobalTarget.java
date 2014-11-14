@@ -12,6 +12,7 @@ public class GlobalTarget implements IGlobalTargetObject {
     private ArrayList<Actor> actors;
 
     private float[][] matrix;
+    private float[] selfVector;
 
     /**
      * Глобальна мета, яка містить акторів та їх цілі
@@ -71,5 +72,9 @@ public class GlobalTarget implements IGlobalTargetObject {
 
     public void setMatrix(float[][] matrix) {
         this.matrix = matrix;
+    }
+
+    public float[][] getMatrix() {
+        return matrix;
     }
 }
