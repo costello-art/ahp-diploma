@@ -19,8 +19,8 @@ public class AppMain extends JFrame {
 
 
     private JPanel panelRoot;
-    private JPanel panelBasicDataInput;
-    private JPanel panelTargetInput;
+    private JPanel panelStep1;
+    private JPanel panelStep2;
     private JTextField textTargetName;
     private JButton buttonProcessData;
     private JSpinner spinnerActorCount;
@@ -28,12 +28,12 @@ public class AppMain extends JFrame {
     private JButton buttonNextActor;
     private JLabel labelActorName;
 
-    private JPanel panelTargets;
+    private JPanel panelGlobalTargets;
     private JButton buttonShowInputActorsMatrix;
     private JLabel labelTargetInputTitle;
-    private JPanel panelActorTargetInput;
+    private JPanel panelStep3;
     private JButton buttonNextActorInput;
-    private JPanel panelActorTargetMatrixInput;
+    private JPanel panelActorTargets;
     private JButton buttonDoCalculations;
     private GlobalTarget globalTarget;
     private RTable tableWithTargets;
@@ -55,12 +55,12 @@ public class AppMain extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         panelActors.setLayout(migLayout);
-        panelTargets.setLayout(migLayout);
+        panelGlobalTargets.setLayout(migLayout);
 
         onActorsCountChanged(2);
 
-        panelBasicDataInput.setVisible(false);
-        panelTargetInput.setVisible(false);
+        panelStep1.setVisible(false);
+        panelStep2.setVisible(false);
     }
 
     private void createUIComponents() {
@@ -103,22 +103,22 @@ public class AppMain extends JFrame {
                 }
             }
 
-            panelBasicDataInput.setVisible(false);
+            panelStep1.setVisible(false);
             moveToTargetMatrixInput();
         }
     }
 
     private void moveToTargetMatrixInput() {
-        panelTargetInput.setVisible(true);
+        panelStep2.setVisible(true);
 
         labelTargetInputTitle.setText("Введіть матрицю цілей для всіх акторів. Матриця має розмір " + globalTarget.getActorCount());
 
         tableWithTargets = new RTable(globalTarget.getActorCount());
         tableWithTargets.setHeaders(globalTarget.getActorsNames());
-        panelTargets.add(tableWithTargets, "wrap");
+        panelGlobalTargets.add(tableWithTargets, "wrap");
 
-        panelTargets.validate();
-        panelTargets.repaint();
+        panelGlobalTargets.validate();
+        panelGlobalTargets.repaint();
     }
 
     private void onTargetInputVisible(int actorIndex) {
@@ -135,7 +135,7 @@ public class AppMain extends JFrame {
             Integer targetCount = 0;//(Integer) spinnerActorTargetCount.getValue();
 
             for (int currentTarget = 0; currentTarget < targetCount; currentTarget++) {
-                for (Component c : panelTargets.getComponents()) {
+                for (Component c : panelGlobalTargets.getComponents()) {
                     if (c.getName().equals("targetName" + currentTarget)) {
                         JTextField targetField = (JTextField) c;
                         globalTarget.getActors().get(currentActor).addTarget(targetField.getText());
@@ -157,12 +157,12 @@ public class AppMain extends JFrame {
     private class ProcessActorsMatrixInput implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            panelTargets.removeAll();
+            panelGlobalTargets.removeAll();
             labelTargetInputTitle.setText(String.format("<html>Введіть матрицю цілей для актора<b>\"%s\"</b></html>", globalTarget.getActorsNames().get(0)));
             tableWithTargets = new RTable(globalTarget.getActors().get(0).getTargets().size());
-            panelTargets.add(tableWithTargets);
-            panelTargets.validate();
-            panelTargets.repaint();
+            panelGlobalTargets.add(tableWithTargets);
+            panelGlobalTargets.validate();
+            panelGlobalTargets.repaint();
         }
     }
 }
