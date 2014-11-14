@@ -15,17 +15,17 @@ public class RTable extends JTable {
     private float[][] matrix;
 
     /**
-     * Square size of the table
+     * Square actorCount of the table
      *
-     * @param size size
+     * @param actorCount actorCount
      */
-    public RTable(int sizes) {
+    public RTable(int actorCount) {
         super();
-        this.size = size + 1;
+        size = actorCount + 1;
 
         setModel(new DefaultTableModel(size, size));
 
-        matrix = new float[size][size];
+        matrix = new float[size - 1][size - 1];
 
         reset();
 
@@ -34,9 +34,9 @@ public class RTable extends JTable {
 
     public void setHeaders(ArrayList<String> headers) {
         //set top and left header
-        for (int i = 0; i < size; i++) {
-            getModel().setValueAt(headers.get(i), i, 0);
-            getModel().setValueAt(headers.get(i), 0, i);
+        for (int i = 1; i < size; i++) {
+            getModel().setValueAt(headers.get(i - 1), i, 0);
+            getModel().setValueAt(headers.get(i - 1), 0, i);
         }
     }
 
@@ -50,12 +50,12 @@ public class RTable extends JTable {
                 }
 
                 getColumnModel().getColumn(i).setPreferredWidth(60);
-                matrix[i][j] = Float.parseFloat(getModel().getValueAt(i, j).toString());
+                matrix[i - 1][j - 1] = Float.parseFloat(getModel().getValueAt(i, j).toString());
             }
         }
     }
 
-    private float[][] getMatrix() {
+    public float[][] getMatrix() {
         return matrix;
     }
 

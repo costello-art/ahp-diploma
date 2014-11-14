@@ -22,19 +22,20 @@ public class AppMain extends JFrame {
     private JPanel panelStep1;
     private JPanel panelStep2;
     private JTextField textTargetName;
-    private JButton buttonProcessData;
+    private JButton buttonActorsInput;
     private JSpinner spinnerActorCount;
     private JPanel panelActors;
     private JButton buttonNextActor;
     private JLabel labelActorName;
 
     private JPanel panelGlobalTargets;
-    private JButton buttonShowInputActorsMatrix;
-    private JLabel labelTargetInputTitle;
+    private JButton buttonGlobalTargetInput;
+    private JLabel labelGlobalTarget;
     private JPanel panelStep3;
     private JButton buttonNextActorInput;
     private JPanel panelActorTargets;
     private JButton buttonDoCalculations;
+    private JLabel labelActorsTargetsInput;
     private GlobalTarget globalTarget;
     private RTable tableWithTargets;
 
@@ -48,9 +49,9 @@ public class AppMain extends JFrame {
     }
 
     public AppMain() throws HeadlessException {
-        buttonProcessData.addActionListener(new ProcessActorInput());
-        buttonNextActor.addActionListener(new ProcessNextActorTargetInput());
-        buttonShowInputActorsMatrix.addActionListener(new ProcessActorsMatrixInput());
+        buttonActorsInput.addActionListener(new ProcessActorInput());
+        buttonGlobalTargetInput.addActionListener(new ProcessGlobalMatrixInput());
+      //  buttonNextActor.addActionListener(new ProcessNextActorTargetInput());
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -59,8 +60,9 @@ public class AppMain extends JFrame {
 
         onActorsCountChanged(2);
 
-        panelStep1.setVisible(false);
+        panelStep1.setVisible(true);
         panelStep2.setVisible(false);
+        panelStep3.setVisible(false);
     }
 
     private void createUIComponents() {
@@ -81,6 +83,8 @@ public class AppMain extends JFrame {
 
         for (int i = 0; i < count; i++) {
             ActorTargetBox atb = new ActorTargetBox(i);
+            atb.setActorName("act" + i);
+            atb.setTargetsText("t1,t2");
             panelActors.add(atb, "wrap");
         }
 
@@ -104,14 +108,14 @@ public class AppMain extends JFrame {
             }
 
             panelStep1.setVisible(false);
-            moveToTargetMatrixInput();
+            moveToStep2();
         }
     }
 
-    private void moveToTargetMatrixInput() {
+    private void moveToStep2() {
         panelStep2.setVisible(true);
 
-        labelTargetInputTitle.setText("Введіть матрицю цілей для всіх акторів. Матриця має розмір " + globalTarget.getActorCount());
+        labelGlobalTarget.setText("Введіть матрицю цілей для всіх акторів. Матриця має розмір " + globalTarget.getActorCount());
 
         tableWithTargets = new RTable(globalTarget.getActorCount());
         tableWithTargets.setHeaders(globalTarget.getActorsNames());
@@ -154,15 +158,17 @@ public class AppMain extends JFrame {
         }
     }
 
-    private class ProcessActorsMatrixInput implements ActionListener {
+    private class ProcessGlobalMatrixInput implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            panelGlobalTargets.removeAll();
-            labelTargetInputTitle.setText(String.format("<html>Введіть матрицю цілей для актора<b>\"%s\"</b></html>", globalTarget.getActorsNames().get(0)));
-            tableWithTargets = new RTable(globalTarget.getActors().get(0).getTargets().size());
-            panelGlobalTargets.add(tableWithTargets);
-            panelGlobalTargets.validate();
-            panelGlobalTargets.repaint();
+            globalTarget.setMatrix(tableWithTargets.getMatrix());
+            panelGlobalTargets.setVisible(false);
+            moveToStep3();
         }
+    }
+
+    private void moveToStep3() {
+        panelActorTargets.setVisible(true);
+        labelActorsTargetsInput.setText(String.format("<html>Введіть матрицю цілей для актора<b>\"%s\"</b></html>", globalTarget.getActorsNames().get(0)));
     }
 }

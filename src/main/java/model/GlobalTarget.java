@@ -68,4 +68,8 @@ public class GlobalTarget implements IGlobalTargetObject {
     public void setName(String name) {
         target = name;
     }
+
+    public void setMatrix(float[][] matrix) {
+        this.matrix = matrix;
+    }
 }
