@@ -22,14 +22,14 @@ public class AppMain extends JFrame {
     private JPanel panelStep1;
     private JPanel panelStep2;
     private JTextField textTargetName;
-    private JButton buttonActorsInput;
+    private JButton buttonMoveToStep2;
     private JSpinner spinnerActorCount;
     private JPanel panelActors;
     private JButton buttonNextActor;
     private JLabel labelActorName;
 
     private JPanel panelGlobalTargets;
-    private JButton buttonGlobalTargetInput;
+    private JButton buttonMoveToStep3;
     private JLabel labelGlobalTarget;
     private JPanel panelStep3;
     private JButton buttonNextActorInput;
@@ -49,14 +49,16 @@ public class AppMain extends JFrame {
     }
 
     public AppMain() throws HeadlessException {
-        buttonActorsInput.addActionListener(new ProcessActorInput());
-        buttonGlobalTargetInput.addActionListener(new ProcessGlobalMatrixInput());
+        buttonMoveToStep2.addActionListener(new ProcessActorNamesInput());
+        //buttonMoveToStep2.addActionListener(new ProcessGlobalMatrixInput());
+        buttonMoveToStep3.addActionListener(new ProcessGlobalMatrixInput());
       //  buttonNextActor.addActionListener(new ProcessNextActorTargetInput());
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         panelActors.setLayout(migLayout);
         panelGlobalTargets.setLayout(migLayout);
+        panelActorTargets.setLayout(migLayout);
 
         onActorsCountChanged(2);
 
@@ -92,7 +94,7 @@ public class AppMain extends JFrame {
         panelActors.repaint();
     }
 
-    private class ProcessActorInput implements ActionListener {
+    private class ProcessActorNamesInput implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             Integer count = (Integer) spinnerActorCount.getValue();
@@ -162,13 +164,20 @@ public class AppMain extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             globalTarget.setMatrix(tableWithTargets.getMatrix());
-            panelGlobalTargets.setVisible(false);
+            panelStep2.setVisible(false);
             moveToStep3();
         }
     }
 
     private void moveToStep3() {
-        panelActorTargets.setVisible(true);
+        panelStep3.setVisible(true);
         labelActorsTargetsInput.setText(String.format("<html>Введіть матрицю цілей для актора<b>\"%s\"</b></html>", globalTarget.getActorsNames().get(0)));
+        RTable tableWithTargets = new RTable(globalTarget.getActors().get(0).getTargets().size());
+        tableWithTargets.setHeaders(globalTarget.getActors().get(0).getTargets());
+
+        panelActorTargets.add(tableWithTargets, "wrap");
+
+        panelActorTargets.validate();
+        panelActorTargets.repaint();
     }
 }
