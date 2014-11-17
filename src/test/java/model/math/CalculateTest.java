@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
-public class CalculateSelfVectorTest {
+public class CalculateTest {
 
     float[][] matrix = {
             {1, 3, 0.2f, 6},
@@ -28,12 +28,12 @@ public class CalculateSelfVectorTest {
 
     @Test
     public void testForMatrix() throws Exception {
-        assertEquals(vExpected, CalculateSelfVector.forMatrix(matrix));
+        assertEquals(vExpected, Calculate.selfVectorForMatrix(matrix));
     }
 
     @Test
     public void testGetLamda() throws Exception {
         float expected = 5.51f;
-        assertEquals(expected, CalculateSelfVector.getLambda(matrix, vExpected), 0.1f);
+        assertEquals(expected, Calculate.lambda(matrix, vExpected), 0.1f);
     }
 }

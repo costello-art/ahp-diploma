@@ -1,5 +1,7 @@
 package model;
 
+import model.math.Calculate;
+
 import java.util.ArrayList;
 
 /**
@@ -11,6 +13,7 @@ public class Actor implements IGlobalTargetObject {
     private ArrayList<String> targetNames;
 
     private int targetCount;
+    private ArrayList<Float> selfVector;
 
     /**
      * Матриця оцінок цілей актора
@@ -50,6 +53,8 @@ public class Actor implements IGlobalTargetObject {
 
     public void setMatrix(float[][] matrix) {
         this.matrix = matrix;
+
+        selfVector = Calculate.selfVectorForMatrix(matrix);
     }
 
     public float[][] getMatrix() {

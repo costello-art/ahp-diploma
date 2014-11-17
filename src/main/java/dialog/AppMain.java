@@ -51,6 +51,7 @@ public class AppMain extends JFrame {
     public AppMain() throws HeadlessException {
         buttonMoveToStep2.addActionListener(new ProcessActorNamesInput());
         buttonMoveToStep3.addActionListener(new ProcessGlobalMatrixInput());
+        buttonDoCalculations.addActionListener(new DoCalculations());
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -173,5 +174,12 @@ public class AppMain extends JFrame {
 
         panelActorTargets.validate();
         panelActorTargets.repaint();
+    }
+
+    private class DoCalculations implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+        }
     }
 }
