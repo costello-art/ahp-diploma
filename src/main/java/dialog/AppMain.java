@@ -1,5 +1,6 @@
 package dialog;
 
+import model.Actor;
 import model.GlobalTarget;
 import net.miginfocom.swing.MigLayout;
 
@@ -126,18 +127,28 @@ public class AppMain extends JFrame {
 
     private class ProcessNextActorTargetInput implements ActionListener {
         int count = globalTarget.getActorCount();
-        int currentActor = 1;
+        int currentActor = 0;
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (currentActor >= count) {
+            if (currentActor + 1 >= count) {
                 labelActorsTargetsInput.setText("Цілі для всіх акторів вже введено.");
+                buttonNextActor.setEnabled(false);
                 return;
             }
+            currentActor++;
 
             labelActorsTargetsInput.setText(String.format("<html>Введіть матрицю цілей для актора<b>\"%s\"</b></html>", globalTarget.getActorsNames().get(currentActor)));
             globalTarget.getActors().get(currentActor).setMatrix(tableWithTargets.getMatrix());
-            currentActor++;
+
+            remove(tableWithTargets);
+            panelActorTargets.validate();
+            panelActorTargets.repaint();
+
+            Actor actor = globalTarget.getActors().get(currentActor);
+            tableWithTargets = new RTable(actor.getTargets().size());
+            tableWithTargets.setHeaders(actor.getTargets());
+            panelActorTargets.add(tableWithTargets, "wrap");
         }
     }
 

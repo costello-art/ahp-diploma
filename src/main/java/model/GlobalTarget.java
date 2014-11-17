@@ -12,7 +12,7 @@ public class GlobalTarget implements IGlobalTargetObject {
     private ArrayList<Actor> actors;
 
     private float[][] matrix;
-    private float[] selfVector;
+    private ArrayList<Float> selfVector;
 
     /**
      * Глобальна мета, яка містить акторів та їх цілі
@@ -24,6 +24,7 @@ public class GlobalTarget implements IGlobalTargetObject {
         this.actorCount = actorCount;
         matrix = new float[actorCount][actorCount];
         actors = new ArrayList<>();
+        selfVector = new ArrayList<>();
 
         initMatrix();
     }
