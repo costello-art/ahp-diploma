@@ -11,7 +11,6 @@ import java.util.Map;
  */
 public class GlobalTarget implements IGlobalTargetObject {
     private String target;
-    private int actorCount;
 
     private ArrayList<Actor> actorsList;
 
@@ -23,32 +22,28 @@ public class GlobalTarget implements IGlobalTargetObject {
      * Глобальна мета, яка містить акторів та їх цілі
      *
      * @param target     назва мети
-     * @param actorCount кількість акторів
      */
-    public GlobalTarget(String target, int actorCount) {
+    public GlobalTarget(String target) {
         this.target = target;
-        this.actorCount = actorCount;
-        matrix = new float[actorCount][actorCount];
         actorsList = new ArrayList<>();
-
         actorsWeightValues = new HashMap<>();
-
-        initMatrix();
     }
 
     private void initMatrix() {
-        for (int i = 0; i < actorCount; i++) {
+        matrix = new float[actorsList.size()][actorsList.size()];
+        for (int i = 0; i < actorsList.size(); i++) {
             matrix[i][i] = 1;
         }
     }
 
-    public int getActorCount() {
-        return actorCount;
+    public void addActor(String name, ArrayList<String> targets) {
+        Actor actor = new Actor(name, targets);
+        actorsList.add(actor);
+        initMatrix();
     }
 
-    public void addActor(String name, ArrayList<String> targets) {
-        Actor actor = new Actor(name, actorCount, targets);
-        actorsList.add(actor);
+    public int getActorCount() {
+        return actorsList.size();
     }
 
     public ArrayList<String> getActorsNames() {

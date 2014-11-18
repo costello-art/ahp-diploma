@@ -97,7 +97,7 @@ public class AppMain extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             Integer count = (Integer) spinnerActorCount.getValue();
-            globalTarget = new GlobalTarget(textTargetName.getText(), count);
+            globalTarget = new GlobalTarget(textTargetName.getText());
 
             for (int i = 0; i < count; i++) {
                 for (Component c : panelActors.getComponents()) {
