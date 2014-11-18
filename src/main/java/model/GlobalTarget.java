@@ -1,9 +1,9 @@
 package model;
 
 import model.math.Calculate;
+import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,6 +11,7 @@ import java.util.Map;
  * Created by Sviat on 12.11.14.
  */
 public class GlobalTarget implements IGlobalTargetObject {
+    final static Logger log = Logger.getLogger(GlobalTarget.class);
     private String target;
 
     private ArrayList<Actor> actorsList;
@@ -23,7 +24,7 @@ public class GlobalTarget implements IGlobalTargetObject {
     /**
      * Глобальна мета, яка містить акторів та їх цілі
      *
-     * @param target     назва мети
+     * @param target назва мети
      */
     public GlobalTarget(String target) {
         this.target = target;
@@ -39,6 +40,8 @@ public class GlobalTarget implements IGlobalTargetObject {
     }
 
     public void addActor(String name, ArrayList<String> targets) {
+        log.info(String.format("Added actor %s with target count %d", name, targets.size()));
+
         Actor actor = new Actor(name, targets);
         actorsList.add(actor);
         initMatrix();
@@ -80,8 +83,11 @@ public class GlobalTarget implements IGlobalTargetObject {
 
         ArrayList<Float> selfVector = Calculate.selfVectorForMatrix(matrix);
 
+        log.debug("selfVector for GlobalTarget has been calculated");
+
         for (int i = 0; i < selfVector.size(); i++) {
             actorsWeightValues.put(actorsList.get(i).getName(), selfVector.get(i));
+            log.debug(String.format("Actor: %s, weight: %s", actorsList.get(i).getName(), selfVector.get(i)));
         }
 
         actorsWeightValues = MapSort.sortByComparator(actorsWeightValues, false);
@@ -89,11 +95,16 @@ public class GlobalTarget implements IGlobalTargetObject {
 
         bestActors = new ArrayList<>();
 
+        log.debug("actor weight map has been sorted");
         for (String key : actorsWeightValues.keySet()) {
             for (Actor actor : actorsList) {
                 if (actor.getName().equals(key)) {
                     bestActors.add(actor);
-                    if (bestActors.size() > 2) return;
+                    log.debug("added actor " + key);
+                    if (bestActors.size() >= 2) {
+                        log.debug("added needed amount of actors");
+                        return;
+                    }
                 }
             }
         }

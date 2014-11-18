@@ -16,6 +16,7 @@ public class ActorsTargetsInput extends JDialog {
     private JLabel labelActorsTargetsInput;
     private JButton buttonNextActorTargetsInput;
     private JPanel panelActorsTargets;
+    private JPanel panelRoot;
     private GlobalTarget target;
     private final ArrayList<Actor> bestActorsList;
 
@@ -24,10 +25,8 @@ public class ActorsTargetsInput extends JDialog {
         this.target = target;
         setLocationRelativeTo(startWindow);
         setModal(true);
-
         setSize(new Dimension(640, 480));
-
-        //setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        setContentPane(panelRoot);
 
         bestActorsList = target.getBestActors();
 
@@ -38,9 +37,7 @@ public class ActorsTargetsInput extends JDialog {
         );
 
         buttonNextActorTargetsInput.addActionListener(new OnActorsMatrixEntered());
-
     }
-
 
     public GlobalTarget display() {
         setVisible(true);

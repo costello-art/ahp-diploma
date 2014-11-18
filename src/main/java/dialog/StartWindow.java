@@ -22,6 +22,7 @@ public class StartWindow extends JFrame {
     private JPanel panelRoot;
     private JPanel panelMatrix;
     private GlobalTarget target;
+    private RTable actorTargetMatrix;
 
     public static void main(String[] args) {
         log.debug("ok");
@@ -63,11 +64,11 @@ public class StartWindow extends JFrame {
     }
 
     private void addMatrix() {
-        RTable table = new RTable(target.getActorCount());
-        table.setHeaders(target.getActorsNames());
+        actorTargetMatrix = new RTable(target.getActorCount());
+        actorTargetMatrix.setHeaders(target.getActorsNames());
 
         panelMatrix.setLayout(migLayout);
-        panelMatrix.add(table, "w 100%, h 100%");
+        panelMatrix.add(actorTargetMatrix, "w 100%, h 100%");
 
         panelMatrix.validate();
         panelMatrix.repaint();
@@ -82,9 +83,9 @@ public class StartWindow extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            target.setMatrix(actorTargetMatrix.getMatrix());
             ActorsTargetsInput aDialog = new ActorsTargetsInput(startWindow, target);
             target = aDialog.display();
-
         }
     }
 }
