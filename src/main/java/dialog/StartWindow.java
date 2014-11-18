@@ -31,7 +31,6 @@ public class StartWindow extends JFrame {
         start.setVisible(true);
 
         start.setLocationRelativeTo(null);
-        start.setResizable(false);
 
         start.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
