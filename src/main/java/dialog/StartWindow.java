@@ -2,6 +2,7 @@ package dialog;
 
 import model.GlobalTarget;
 import net.miginfocom.swing.MigLayout;
+import org.apache.log4j.Logger;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,16 +13,18 @@ import java.awt.event.ActionListener;
  * Created by Sviat on 18.11.14.
  */
 public class StartWindow extends JFrame {
+    final static Logger log = Logger.getLogger(StartWindow.class);
     private static MigLayout migLayout = new MigLayout("ins 0, hidemode 3", "", "[][][]");
 
     private JTextField textFieldTarget;
     private JButton buttonAddActors;
-    private JButton buttonActorTargetMatrixInput;
+    private JButton buttonActorTargetMatrixInputDone;
     private JPanel panelRoot;
     private JPanel panelMatrix;
     private GlobalTarget target;
 
     public static void main(String[] args) {
+        log.debug("ok");
         StartWindow start = new StartWindow();
         start.setTitle("Диплом Горошка!");
 
@@ -37,6 +40,7 @@ public class StartWindow extends JFrame {
 
     public StartWindow() throws HeadlessException {
         buttonAddActors.addActionListener(new OpenActorInputDialog(this));
+        buttonActorTargetMatrixInputDone.addActionListener(new OpenActorsTargetsInput(this));
     }
 
     private class OpenActorInputDialog implements ActionListener {
@@ -67,5 +71,20 @@ public class StartWindow extends JFrame {
 
         panelMatrix.validate();
         panelMatrix.repaint();
+    }
+
+    private class OpenActorsTargetsInput implements ActionListener {
+        private StartWindow startWindow;
+
+        public OpenActorsTargetsInput(StartWindow startWindow) {
+            this.startWindow = startWindow;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            ActorsTargetsInput aDialog = new ActorsTargetsInput(startWindow, target);
+            target = aDialog.display();
+
+        }
     }
 }

@@ -3,6 +3,7 @@ package model;
 import model.math.Calculate;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,6 +18,7 @@ public class GlobalTarget implements IGlobalTargetObject {
     private float[][] matrix;
 
     private Map<String, Float> actorsWeightValues;
+    private ArrayList<Actor> bestActors;
 
     /**
      * Глобальна мета, яка містить акторів та їх цілі
@@ -84,9 +86,24 @@ public class GlobalTarget implements IGlobalTargetObject {
 
         actorsWeightValues = MapSort.sortByComparator(actorsWeightValues, false);
         MapSort.printMap(actorsWeightValues);
+
+        bestActors = new ArrayList<>();
+
+        for (String key : actorsWeightValues.keySet()) {
+            for (Actor actor : actorsList) {
+                if (actor.getName().equals(key)) {
+                    bestActors.add(actor);
+                    if (bestActors.size() > 2) return;
+                }
+            }
+        }
     }
 
     public float[][] getMatrix() {
         return matrix;
+    }
+
+    public ArrayList<Actor> getBestActors() {
+        return bestActors;
     }
 }

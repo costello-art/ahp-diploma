@@ -40,7 +40,7 @@
           <text value="&lt;html&gt;&lt;color=&quot;green&quot;&gt;&lt;b&gt;Додати акторів&lt;/b&gt;&lt;/html&gt;"/>
         </properties>
       </component>
-      <component id="a6e75" class="javax.swing.JButton" binding="buttonActorTargetMatrixInput">
+      <component id="a6e75" class="javax.swing.JButton" binding="buttonActorTargetMatrixInputDone">
         <constraints>
           <grid row="4" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
