@@ -73,7 +73,7 @@ public class RTable extends JTable {
             int col = getSelectedColumn();
             int row = getSelectedRow();
 
-            if (col == -1 || row == -1) {
+            if (col < 1 || row < 1) {
                 return;
             }
 
@@ -90,6 +90,9 @@ public class RTable extends JTable {
             float value = Float.parseFloat((String) getModel().getValueAt(row, col));
 
             getModel().setValueAt(1 / value, col, row);
+
+            matrix[row-1][col-1] = value;
+            matrix[col-1][row-1] = 1 / value;
 
             System.out.println("table has been changed!");
             System.out.println(String.format("%d:%d", row, col));
