@@ -3,6 +3,7 @@ package model;
 import model.math.Calculate;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 /**
@@ -12,12 +13,14 @@ public class GlobalTarget implements IGlobalTargetObject {
     private String target;
     private int actorCount;
 
-    private ArrayList<Actor> actors;
+    private ArrayList<Actor> actorsList;
 
     private float[][] matrix;
-    private ArrayList<Float> selfVector;
 
-    HashMap<Actor, Float> bestActors;
+    private HashMap<String, Float> actorsWeightValues;
+
+    private int firstBestActor = -1;
+    private int secondBestActor = -1;
 
     /**
      * Глобальна мета, яка містить акторів та їх цілі
@@ -28,9 +31,9 @@ public class GlobalTarget implements IGlobalTargetObject {
         this.target = target;
         this.actorCount = actorCount;
         matrix = new float[actorCount][actorCount];
-        actors = new ArrayList<>();
-        selfVector = new ArrayList<>();
-        bestActors = new HashMap<>();
+        actorsList = new ArrayList<>();
+
+        actorsWeightValues = new HashMap<>();
 
         initMatrix();
     }
@@ -47,7 +50,7 @@ public class GlobalTarget implements IGlobalTargetObject {
 
     public void addActor(String name, ArrayList<String> targets) {
         Actor actor = new Actor(name, actorCount, targets);
-        actors.add(actor);
+        actorsList.add(actor);
     }
 
     public ArrayList<String> getActorsNames() {
@@ -64,7 +67,7 @@ public class GlobalTarget implements IGlobalTargetObject {
 
 
     public ArrayList<Actor> getActors() {
-        return actors;
+        return actorsList;
     }
 
     @Override
@@ -80,17 +83,22 @@ public class GlobalTarget implements IGlobalTargetObject {
     public void setMatrix(float[][] matrix) {
         this.matrix = matrix;
 
-        selfVector = Calculate.selfVectorForMatrix(matrix);
+        ArrayList<Float> selfVector = Calculate.selfVectorForMatrix(matrix);
 
-         /*float max = selfVector.get(0);
-        TODO: треба вибирати два найкращих актори (максимальні значення вектора)
-        for (int i = 0; i < 2; i++) {
-            for (int j = 1; j < selfVector.size(); j++) {
-                if (max < selfVector.get(j)) {
-                    max = selfVector.get(j);
-                }
-            }
-        }*/
+        for (int i = 0; i < selfVector.size(); i++) {
+            actorsWeightValues.put(actorsList.get(i).getName(), selfVector.get(i));
+        }
+
+        ArrayList<Float> selfVectorCopy = new ArrayList<>();
+
+        selfVectorCopy.addAll(selfVector);
+
+        Collections.sort(selfVectorCopy);
+        float first = selfVectorCopy.get(0);
+        float second = selfVectorCopy.get(1);
+
+        firstBestActor = selfVector.indexOf(first);
+        secondBestActor = selfVector.indexOf(second);
     }
 
     public float[][] getMatrix() {
