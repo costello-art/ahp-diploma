@@ -3,8 +3,8 @@ package model;
 import model.math.Calculate;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Sviat on 12.11.14.
@@ -17,14 +17,12 @@ public class GlobalTarget implements IGlobalTargetObject {
 
     private float[][] matrix;
 
-    private HashMap<String, Float> actorsWeightValues;
-
-    private int firstBestActor = -1;
-    private int secondBestActor = -1;
+    private Map<String, Float> actorsWeightValues;
 
     /**
      * Глобальна мета, яка містить акторів та їх цілі
-     * @param target назва мети
+     *
+     * @param target     назва мети
      * @param actorCount кількість акторів
      */
     public GlobalTarget(String target, int actorCount) {
@@ -89,16 +87,8 @@ public class GlobalTarget implements IGlobalTargetObject {
             actorsWeightValues.put(actorsList.get(i).getName(), selfVector.get(i));
         }
 
-        ArrayList<Float> selfVectorCopy = new ArrayList<>();
-
-        selfVectorCopy.addAll(selfVector);
-
-        Collections.sort(selfVectorCopy);
-        float first = selfVectorCopy.get(0);
-        float second = selfVectorCopy.get(1);
-
-        firstBestActor = selfVector.indexOf(first);
-        secondBestActor = selfVector.indexOf(second);
+        actorsWeightValues = MapSort.sortByComparator(actorsWeightValues, false);
+        MapSort.printMap(actorsWeightValues);
     }
 
     public float[][] getMatrix() {
