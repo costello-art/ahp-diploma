@@ -21,6 +21,10 @@ public class GlobalTarget implements IGlobalTargetObject {
     private Map<String, Float> actorsWeightValues;
     private ArrayList<Actor> bestActors;
 
+    private ArrayList<String> scenarioList;
+
+    private Map<String, Float> bestTargetsForActors;
+
     /**
      * Глобальна мета, яка містить акторів та їх цілі
      *
@@ -30,6 +34,7 @@ public class GlobalTarget implements IGlobalTargetObject {
         this.target = target;
         actorsList = new ArrayList<>();
         actorsWeightValues = new HashMap<>();
+        scenarioList = new ArrayList<>();
     }
 
     private void initMatrix() {
@@ -37,6 +42,14 @@ public class GlobalTarget implements IGlobalTargetObject {
         for (int i = 0; i < actorsList.size(); i++) {
             matrix[i][i] = 1;
         }
+    }
+
+    public void setScenarioList(ArrayList<String> scenario) {
+        scenarioList = scenario;
+    }
+
+    public ArrayList<String> getScenario() {
+        return scenarioList;
     }
 
     public void addActor(String name, ArrayList<String> targets) {
@@ -116,5 +129,13 @@ public class GlobalTarget implements IGlobalTargetObject {
 
     public ArrayList<Actor> getBestActors() {
         return bestActors;
+    }
+
+    public void setBestTargetsForActors(Map<String, Float> bestTargets) {
+        bestTargetsForActors = bestTargets;
+    }
+
+    public Map<String, Float> getBestTargetsForActors() {
+        return bestTargetsForActors;
     }
 }
