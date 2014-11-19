@@ -1,11 +1,17 @@
 package model.math;
 
+import org.apache.log4j.Logger;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Sviat on 14.11.14.
  */
 public class Calculate {
+    final static Logger log = Logger.getLogger(Calculate.class);
+
     /**
      * Обчислення власного вектора із матриці оцінок
      * @param matrix матриця оцінок
@@ -94,17 +100,42 @@ public class Calculate {
      * @param vector вектор для нормалізації
      * @return нормалізований вектор такого ж розміру
      */
-    public static ArrayList<Float> normalizeWeightVectorOfBestTargets(ArrayList<Float> vector){
+    public static Map<String, Float> normalizeWeightVectorOfBestTargets(Map<String, Float> targets){
+        log.debug("Going to normalize targets");
+
         float sume = 0;
-        for (Float v : vector) {
-            sume += v;
+        for (String target : targets.keySet()) {
+            sume += targets.get(target);
         }
 
-        for (int i = 0; i < vector.size(); i++) {
-            float newValue = (float) (vector.get(i) * 100.0 / sume);
-            vector.set(i, newValue);
+        for (String target : targets.keySet()) {
+            float newValue = (float) (targets.get(target) * 100.0 / sume);
+            targets.put(target, newValue);
+            log.debug("calculated new norm value: " + newValue);
         }
 
-        return vector;
+        return targets;
+    }
+
+    public static Map<String, Float> buildAndNormalizeVectorOfBestTargets(Map<String, Float> firstTarget, Map<String, Float> secondTarget) {
+        Map<String, Float> newVector = new HashMap<>();
+
+        for (String targetName: firstTarget.keySet()) {
+            newVector.put(targetName, firstTarget.get(targetName));
+            if (newVector.size() >= 2) {
+                log.debug("added needed count of targets in vector from first");
+                break;
+            }
+        }
+
+        for (String targetName: secondTarget.keySet()) {
+            newVector.put(targetName, secondTarget.get(targetName));
+            if (newVector.size() >= 4) {
+                log.debug("added needed count of targets in vector from second");
+                break;
+            }
+        }
+
+        return normalizeWeightVectorOfBestTargets(newVector);
     }
 }
