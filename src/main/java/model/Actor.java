@@ -4,6 +4,7 @@ import model.math.Calculate;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -60,6 +61,7 @@ public class Actor implements IGlobalTargetObject {
 
         log.debug(String.format("Matrix for %s has been set.", getName()));
 
+        actorsTargetsWeightValues = new HashMap<>();
         for (int i = 0; i < selfVector.size(); i++) {
             actorsTargetsWeightValues.put(targetList.get(i), selfVector.get(i));
             log.debug(String.format("Target: %s, weight: %s", targetList.get(i), selfVector.get(i)));

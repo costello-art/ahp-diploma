@@ -1,7 +1,6 @@
 package dialog;
 
 import model.GlobalTarget;
-import model.Scenario;
 import model.math.Calculate;
 import net.miginfocom.swing.MigLayout;
 import org.apache.log4j.Logger;

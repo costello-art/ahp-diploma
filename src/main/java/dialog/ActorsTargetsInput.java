@@ -4,6 +4,7 @@ import model.Actor;
 import model.GlobalTarget;
 import model.math.Calculate;
 import net.miginfocom.swing.MigLayout;
+import org.apache.log4j.Logger;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,6 +17,7 @@ import java.util.Map;
  * Created by Sviat on 19.11.14.
  */
 public class ActorsTargetsInput extends JDialog {
+    final static Logger log = Logger.getLogger(ActorsTargetsInput.class);
     private static MigLayout migLayout = new MigLayout("ins 0, hidemode 3", "", "[][][]");
 
     private JLabel labelActorsTargetsInput;
@@ -62,8 +64,8 @@ public class ActorsTargetsInput extends JDialog {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            log.debug("Current actor index: " + currentActor);
             target.getBestActors().get(currentActor).setMatrix(table.getMatrix());
-            // bestActorsList.get(currentActor).setMatrix(table.getMatrix());
 
             //лічильник збільшується тут, бо на початку вручну обробили 0
             currentActor++;
@@ -74,7 +76,7 @@ public class ActorsTargetsInput extends JDialog {
                 return;
             }
 
-            labelActorsTargetsInput.setText("Матриця цілей для актора " + bestActorsList.get(currentActor).getName());
+            labelMatrixForActor.setText("Матриця цілей для актора " + bestActorsList.get(currentActor).getName());
             buildMatrixForCurrentActor(currentActor);
         }
     }

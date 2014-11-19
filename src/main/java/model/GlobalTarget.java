@@ -39,6 +39,8 @@ public class GlobalTarget implements IGlobalTargetObject {
         actorsList = new ArrayList<>();
         actorsWeightValues = new HashMap<>();
         scenarioListNames = new ArrayList<>();
+
+        scenarioList = new ArrayList<>();
     }
 
     private void initMatrix() {
@@ -136,6 +138,10 @@ public class GlobalTarget implements IGlobalTargetObject {
     }
 
     public ArrayList<Actor> getBestActors() {
+        if (bestActors == null) {
+            log.error("best actors is null!");
+        }
+
         return bestActors;
     }
 

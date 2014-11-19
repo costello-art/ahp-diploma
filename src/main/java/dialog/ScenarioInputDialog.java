@@ -30,6 +30,7 @@ public class ScenarioInputDialog extends JDialog {
     private RTable table;
     private int currentScenarioAndList = 0;
     private Map<String, Float> bestTargets;
+    private ArrayList<String> bestTargetNames;
 
     public ScenarioInputDialog(StartWindow startWindow, GlobalTarget target) {
         this.target = target;
@@ -79,7 +80,7 @@ public class ScenarioInputDialog extends JDialog {
 
             target.setScenarioListNames(scenarios);
 
-            ArrayList<String> bestTargetNames = new ArrayList<>();
+            bestTargetNames = new ArrayList<>();
 
             bestTargets = target.getBestTargetsForActors();
 
@@ -88,8 +89,7 @@ public class ScenarioInputDialog extends JDialog {
             }
 
             labelCurrentScenario.setText(
-                    String.format("<html>Матриця сценарія <br>%s</br> для цілі %s</html>",
-                            target.getScenarioList().get(currentScenarioAndList).getName(),
+                    String.format("<html>Матриця сценарія для цілі %s</html>",
                             bestTargetNames.get(currentScenarioAndList)));
             buildMatrixForScenario(currentScenarioAndList);
         }
@@ -100,6 +100,10 @@ public class ScenarioInputDialog extends JDialog {
         public void actionPerformed(ActionEvent e) {
             target.getScenarioList().get(currentScenarioAndList).setMatrix(table.getMatrix());
             currentScenarioAndList++;
+
+            labelCurrentScenario.setText(
+                    String.format("<html>Матриця сценарія для цілі %s</html>",
+                            bestTargetNames.get(currentScenarioAndList)));
 
             if (currentScenarioAndList >= bestTargets.size()) {
                 labelScenarioTitle.setText("Всі сценарії введено");
@@ -116,6 +120,7 @@ public class ScenarioInputDialog extends JDialog {
         @Override
         public void actionPerformed(ActionEvent e) {
             log.debug("INPUT HAS BEEN DONE");
+            dispose();
         }
     }
 }
