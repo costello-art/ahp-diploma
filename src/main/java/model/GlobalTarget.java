@@ -27,6 +27,7 @@ public class GlobalTarget implements IGlobalTargetObject {
     private Map<String, Float> bestTargetsForActors;
 
     private ArrayList<Scenario> scenarioList;
+    private ArrayList<Float> bestTargetsAsArray;
 
     /**
      * Глобальна мета, яка містить акторів та їх цілі
@@ -154,5 +155,15 @@ public class GlobalTarget implements IGlobalTargetObject {
         for (int i = 0; i < scenarioList.size(); i++) {
             log.debug(String.format("Result for scenario %s: %f", scenarioList.get(i).getName(), finalVector.get(i)));
         }
+    }
+
+    public ArrayList<Float> getBestTargetsAsArray() {
+        bestTargetsAsArray = new ArrayList<>();
+
+        for (String key : bestTargetsForActors.keySet()) {
+            bestTargetsAsArray.add(bestTargetsForActors.get(key));
+        }
+
+        return bestTargetsAsArray;
     }
 }
