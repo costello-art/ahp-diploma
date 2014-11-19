@@ -6,7 +6,7 @@ import java.util.*;
 import java.util.Map.Entry;
 
 public class MapSort {
-    public static Map<Actor, Double> sortByComparator(Map<Actor, Double> unsortMap, final boolean asc) {
+    public static Map<Actor, Double> sortActorByComparator(Map<Actor, Double> unsortMap, final boolean asc) {
 
         List<Entry<Actor, Double>> list = new LinkedList<>(unsortMap.entrySet());
 
@@ -26,6 +26,32 @@ public class MapSort {
         // Maintaining insertion asc with the help of LinkedList
         Map<Actor, Double> sortedMap = new LinkedHashMap<>();
         for (Entry<Actor, Double> entry : list) {
+            sortedMap.put(entry.getKey(), entry.getValue());
+        }
+
+        return sortedMap;
+    }
+
+    public static Map<String, Double> sortStringByComparator(Map<String, Double> unsortMap, final boolean asc) {
+
+        List<Entry<String, Double>> list = new LinkedList<>(unsortMap.entrySet());
+
+        // Sorting the list based on values
+        Collections.sort(list, new Comparator<Entry<String, Double>>() {
+            public int compare(Entry<String, Double> o1,
+                               Entry<String, Double> o2) {
+                if (asc) {
+                    return o1.getValue().compareTo(o2.getValue());
+                } else {
+                    return o2.getValue().compareTo(o1.getValue());
+
+                }
+            }
+        });
+
+        // Maintaining insertion asc with the help of LinkedList
+        Map<String, Double> sortedMap = new LinkedHashMap<>();
+        for (Entry<String, Double> entry : list) {
             sortedMap.put(entry.getKey(), entry.getValue());
         }
 

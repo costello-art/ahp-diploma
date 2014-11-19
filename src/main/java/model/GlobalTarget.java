@@ -77,7 +77,7 @@ public class GlobalTarget extends Target {
     }
 
     public ArrayList<Actor> getActorsList() {
-        return sortedByWeightActorList;
+        return unsortedActorList;
     }
 
     @Override
@@ -94,7 +94,7 @@ public class GlobalTarget extends Target {
             log.debug(String.format("Actor: %s, weight: %s", unsortedActorList.get(i).getName(), selfVector.get(i)));
         }
 
-        actorsWeight = MapSort.sortByComparator(actorsWeight, false);
+        actorsWeight = MapSort.sortActorByComparator(actorsWeight, false);
 
         for (Actor actor : actorsWeight.keySet()) {
             sortedByWeightActorList.add(actor);

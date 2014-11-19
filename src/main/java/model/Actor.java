@@ -51,7 +51,7 @@ public class Actor extends Target {
             log.debug(String.format("Target: %s, weight: %s", targetList.get(i), selfVector.get(i)));
         }
 
-        targetWeight = MapSort.sortByComparator(targetWeight, false);
+        targetWeight = MapSort.sortStringByComparator(targetWeight, false);
     }
 
     public Map<String, Double> getBestActorsWeightValues() {
