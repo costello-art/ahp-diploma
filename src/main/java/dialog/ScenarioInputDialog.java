@@ -50,7 +50,7 @@ public class ScenarioInputDialog extends JDialog {
         buttonScenarioInputDone.addActionListener(new InputHasBeenDone());
     }
 
-    private void buildMatrixForScenario(int currentScenario) {
+    private void buildMatrixForScenario() {
         panelScenarioInput.removeAll();
         panelScenarioInput.validate();
         panelScenarioInput.repaint();
@@ -90,7 +90,7 @@ public class ScenarioInputDialog extends JDialog {
             labelCurrentScenario.setText(
                     String.format("<html>Матриця сценарія для цілі %s</html>",
                             bestTargetNames.get(currentScenarioAndList)));
-            buildMatrixForScenario(currentScenarioAndList);
+            buildMatrixForScenario();
         }
     }
 
@@ -107,7 +107,7 @@ public class ScenarioInputDialog extends JDialog {
                 labelCurrentScenario.setText(
                         String.format("<html>Матриця сценарія для цілі %s</html>",
                                 bestTargetNames.get(currentScenarioAndList)));
-                buildMatrixForScenario(currentScenarioAndList);
+                buildMatrixForScenario();
             }
         }
     }
