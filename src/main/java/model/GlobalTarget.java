@@ -28,6 +28,7 @@ public class GlobalTarget extends Target {
     public GlobalTarget(String target) {
         this.name = target;
         unsortedActorList = new ArrayList<>();
+        sortedByWeightActorList = new ArrayList<>();
     }
 
     private void initMatrix() {
