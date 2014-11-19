@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * Created by Sviat on 19.11.14.
@@ -62,7 +63,7 @@ public class ActorsTargetsInput extends JDialog {
         @Override
         public void actionPerformed(ActionEvent e) {
             target.getBestActors().get(currentActor).setMatrix(table.getMatrix());
-           // bestActorsList.get(currentActor).setMatrix(table.getMatrix());
+            // bestActorsList.get(currentActor).setMatrix(table.getMatrix());
 
             //лічильник збільшується тут, бо на початку вручну обробили 0
             currentActor++;
@@ -95,6 +96,12 @@ public class ActorsTargetsInput extends JDialog {
     private class OnActorsMatrixEnterDone implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
+            Map<String, Float> v1 = target.getBestActors().get(0).getBestActorsWeightValues();
+            Map<String, Float> v2 = target.getBestActors().get(1).getBestActorsWeightValues();
+            Map<String, Float> bestVector = Calculate.buildAndNormalizeVectorOfBestTargets(v1, v2);
+
+            target.setBestTargetsForActors(bestVector);
+
             dispose();
         }
     }
