@@ -1,6 +1,7 @@
-package model.math;
+package util;
 
 import model.Scenario;
+import model.ScenarioOld;
 import org.apache.log4j.Logger;
 
 import java.util.*;
@@ -122,6 +123,7 @@ public class Calculate {
 
     /**
      * TODO: хеш карта з однаковими цілями перезаписує!!!
+     *
      * @param firstTarget
      * @param secondTarget
      * @return
@@ -148,10 +150,10 @@ public class Calculate {
         return normalizeWeightVectorOfBestTargets(newVector);
     }
 
-    public static ArrayList<Float> getResultVector(ArrayList<Scenario> scenarioList, ArrayList<Float> bestVector) {
-        ArrayList<Float> resultVector = new ArrayList<>();
+    public static ArrayList<Double> getResultVector(ArrayList<Scenario> scenarioList, ArrayList<Float> bestVector) {
+        ArrayList<Double> resultVector = new ArrayList<>();
 
-        float[][] matrix = new float[scenarioList.size()][scenarioList.size()];
+        double[][] matrix = new double[scenarioList.size()][scenarioList.size()];
 
         log.debug("scenario size: " + scenarioList.size());
 
@@ -161,15 +163,15 @@ public class Calculate {
             }
         }
 
-        float[] v = new float[bestVector.size()];
+        double[] v = new double[bestVector.size()];
 
         for (int i = 0; i < bestVector.size(); i++) {
             v[i] = bestVector.get(i);
         }
 
-        float[] arrayResult = multiply(matrix, v);
+        double[] arrayResult = multiply(matrix, v);
 
-        for (float anArrayResult : arrayResult) {
+        for (double anArrayResult : arrayResult) {
             resultVector.add(anArrayResult);
         }
 
@@ -177,13 +179,13 @@ public class Calculate {
     }
 
     // matrix-vector multiplication (y = matrix * vector)
-    public static float[] multiply(float[][] matrix, float[] vector) {
+    public static double[] multiply(double[][] matrix, double[] vector) {
         int m = matrix.length;
         int n = matrix[0].length;
 
         if (vector.length != n) throw new RuntimeException("Illegal matrix dimensions.");
 
-        float[] y = new float[m];
+        double[] y = new double[m];
 
         for (int i = 0; i < m; i++)
             for (int j = 0; j < n; j++)

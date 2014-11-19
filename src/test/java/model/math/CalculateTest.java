@@ -2,6 +2,7 @@ package model.math;
 
 import org.junit.Before;
 import org.junit.Test;
+import util.Calculate;
 
 import java.util.ArrayList;
 
