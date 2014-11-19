@@ -2,6 +2,7 @@ package dialog;
 
 import model.Actor;
 import model.GlobalTarget;
+import model.math.Calculate;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
@@ -21,6 +22,7 @@ public class ActorsTargetsInput extends JDialog {
     private JPanel panelActorsTargets;
     private JPanel panelRoot;
     private JLabel labelMatrixForActor;
+    private JButton buttonActorsTargetsInputDone;
     private GlobalTarget target;
     private final ArrayList<Actor> bestActorsList;
     private RTable table;
@@ -45,6 +47,7 @@ public class ActorsTargetsInput extends JDialog {
 
         labelMatrixForActor.setText("Матриця цілей для актора " + bestActorsList.get(0));
         buttonNextActorTargetsInput.addActionListener(new OnActorsMatrixEntered());
+        buttonActorsTargetsInputDone.addActionListener(new OnActorsMatrixEnterDone());
         buildMatrixForCurrentActor(0);
     }
 
@@ -58,7 +61,8 @@ public class ActorsTargetsInput extends JDialog {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            bestActorsList.get(currentActor).setMatrix(table.getMatrix());
+            target.getBestActors().get(currentActor).setMatrix(table.getMatrix());
+           // bestActorsList.get(currentActor).setMatrix(table.getMatrix());
 
             //лічильник збільшується тут, бо на початку вручну обробили 0
             currentActor++;
@@ -86,5 +90,12 @@ public class ActorsTargetsInput extends JDialog {
         panelActorsTargets.add(table, "w 100%, h 100%");
         panelActorsTargets.validate();
         panelActorsTargets.repaint();
+    }
+
+    private class OnActorsMatrixEnterDone implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            dispose();
+        }
     }
 }
