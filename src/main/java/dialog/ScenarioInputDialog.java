@@ -116,7 +116,6 @@ public class ScenarioInputDialog extends JDialog {
     private class InputHasBeenDone implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            log.debug("INPUT HAS BEEN DONE");
             dispose();
         }
     }
