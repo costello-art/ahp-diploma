@@ -1,10 +1,9 @@
 package model.math;
 
+import model.Scenario;
 import org.apache.log4j.Logger;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Sviat on 14.11.14.
@@ -14,6 +13,7 @@ public class Calculate {
 
     /**
      * Обчислення власного вектора із матриці оцінок
+     *
      * @param matrix матриця оцінок
      * @return власний вектор
      */
@@ -48,8 +48,9 @@ public class Calculate {
 
     /**
      * Обчислення лямбди з вектора власних цілей та матриці оцінок
+     *
      * @param matrix матриця цілей
-     * @param v вектор власних цілей з цієї матриці
+     * @param v      вектор власних цілей з цієї матриці
      * @return ?
      */
     public static float lambda(float[][] matrix, ArrayList<Float> v) {
@@ -82,7 +83,8 @@ public class Calculate {
 
     /**
      * Перемноження власного вектора цілей на відповідну вагу актора (вага це краще значення, м
-     * @param bestValue вага (краще значення, загалом має бути два таких для акторів)
+     *
+     * @param bestValue  вага (краще значення, загалом має бути два таких для акторів)
      * @param selfVector вектор власних значень
      * @return ?
      */
@@ -97,10 +99,11 @@ public class Calculate {
 
     /**
      * Нормалізація вектора ваг кращих цілей
+     *
      * @param vector вектор для нормалізації
      * @return нормалізований вектор такого ж розміру
      */
-    public static Map<String, Float> normalizeWeightVectorOfBestTargets(Map<String, Float> targets){
+    public static Map<String, Float> normalizeWeightVectorOfBestTargets(Map<String, Float> targets) {
         log.debug("Going to normalize targets");
 
         float sume = 0;
@@ -120,7 +123,7 @@ public class Calculate {
     public static Map<String, Float> buildAndNormalizeVectorOfBestTargets(Map<String, Float> firstTarget, Map<String, Float> secondTarget) {
         Map<String, Float> newVector = new HashMap<>();
 
-        for (String targetName: firstTarget.keySet()) {
+        for (String targetName : firstTarget.keySet()) {
             newVector.put(targetName, firstTarget.get(targetName));
             if (newVector.size() >= 2) {
                 log.debug("added needed count of targets in vector from first");
@@ -128,7 +131,7 @@ public class Calculate {
             }
         }
 
-        for (String targetName: secondTarget.keySet()) {
+        for (String targetName : secondTarget.keySet()) {
             newVector.put(targetName, secondTarget.get(targetName));
             if (newVector.size() >= 4) {
                 log.debug("added needed count of targets in vector from second");
@@ -137,5 +140,49 @@ public class Calculate {
         }
 
         return normalizeWeightVectorOfBestTargets(newVector);
+    }
+
+    public static ArrayList<Float> getResultVector(ArrayList<Scenario> scenarioList, ArrayList<Float> bestVector) {
+        ArrayList<Float> resultVector = new ArrayList<>();
+
+        float[][] matrix = new float[scenarioList.size()][scenarioList.size()];
+
+        for (int i = 0; i < scenarioList.size(); i++) {
+            for (int j = 0; j < scenarioList.size(); j++) {
+                matrix[j][i] = scenarioList.get(i).getSelfVector().get(j);
+            }
+        }
+
+        float[] v = new float[bestVector.size()];
+
+        for (int i = 0; i < bestVector.size(); i++) {
+            v[i] = bestVector.get(i);
+        }
+
+        float[] arrayResult = multiply(matrix, v);
+
+        ArrayList<Float> aList = new ArrayList<>();
+
+        for (float anArrayResult : arrayResult) {
+            aList.add(anArrayResult);
+        }
+
+        return aList;
+    }
+
+    // matrix-vector multiplication (y = matrix * vector)
+    public static float[] multiply(float[][] matrix, float[] vector) {
+        int m = matrix.length;
+        int n = matrix[0].length;
+
+        if (vector.length != n) throw new RuntimeException("Illegal matrix dimensions.");
+
+        float[] y = new float[m];
+
+        for (int i = 0; i < m; i++)
+            for (int j = 0; j < n; j++)
+                y[i] += (matrix[i][j] * vector[j]);
+
+        return y;
     }
 }
