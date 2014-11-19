@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class RTable extends JTable {
     private int size;
 
-    private float[][] matrix;
+    private double[][] matrix;
 
     /**
      * Square actorCount of the table
@@ -25,7 +25,7 @@ public class RTable extends JTable {
 
         setModel(new DefaultTableModel(size, size));
 
-        matrix = new float[size - 1][size - 1];
+        matrix = new double[size - 1][size - 1];
 
         reset();
 
@@ -55,7 +55,7 @@ public class RTable extends JTable {
         }
     }
 
-    public float[][] getMatrix() {
+    public double[][] getMatrix() {
         return matrix;
     }
 
@@ -93,9 +93,6 @@ public class RTable extends JTable {
 
             matrix[row-1][col-1] = value;
             matrix[col-1][row-1] = 1 / value;
-
-            System.out.println("table has been changed!");
-            System.out.println(String.format("%d:%d", row, col));
         }
     }
 }
