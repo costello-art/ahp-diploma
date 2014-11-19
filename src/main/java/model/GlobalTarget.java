@@ -29,6 +29,7 @@ public class GlobalTarget extends Target {
         this.name = target;
         unsortedActorList = new ArrayList<>();
         sortedByWeightActorList = new ArrayList<>();
+        scenarioList = new ArrayList<>();
     }
 
     private void initMatrix() {
