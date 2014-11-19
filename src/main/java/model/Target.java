@@ -43,7 +43,7 @@ abstract class Target {
      * @return власний вектор
      */
     protected void initSelfVector() {
-        ArrayList<Double> selfVector = new ArrayList<>();
+        selfVector = new ArrayList<>();
 
         int length = matrix.length;
 
