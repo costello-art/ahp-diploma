@@ -68,7 +68,7 @@ public class Actor implements IGlobalTargetObject {
         actorsTargetsWeightValues = MapSort.sortByComparator(actorsTargetsWeightValues, false);
         MapSort.printMap(actorsTargetsWeightValues);
 
-        bestTargets = new ArrayList<>();
+       /* bestTargets = new ArrayList<>();
 
         log.debug("actor weight map has been sorted");
         for (String key : actorsTargetsWeightValues.keySet()) {
@@ -82,10 +82,14 @@ public class Actor implements IGlobalTargetObject {
                     }
                 }
             }
-        }
+        }*/
     }
 
     public float[][] getMatrix() {
         return matrix;
+    }
+
+    public Map<String, Float> getBestActorsWeightValues() {
+        return actorsTargetsWeightValues;
     }
 }
