@@ -46,7 +46,7 @@ public class ActorsTargetsInput extends JDialog {
                         bestActorsList.get(1).getName())
         );
 
-        labelMatrixForActor.setText("Матриця цілей для актора " + bestActorsList.get(0));
+        labelMatrixForActor.setText("Матриця цілей для актора " + bestActorsList.get(0).getName());
         buttonNextActorTargetsInput.addActionListener(new OnActorsMatrixEntered());
         buttonActorsTargetsInputDone.addActionListener(new OnActorsMatrixEnterDone());
         buildMatrixForCurrentActor(0);
