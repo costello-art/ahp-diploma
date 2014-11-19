@@ -161,13 +161,11 @@ public class Calculate {
 
         float[] arrayResult = multiply(matrix, v);
 
-        ArrayList<Float> aList = new ArrayList<>();
-
         for (float anArrayResult : arrayResult) {
-            aList.add(anArrayResult);
+            resultVector.add(anArrayResult);
         }
 
-        return aList;
+        return resultVector;
     }
 
     // matrix-vector multiplication (y = matrix * vector)

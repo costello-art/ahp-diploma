@@ -108,7 +108,7 @@ public class StartWindow extends JFrame {
 
             log.debug("scenario input has been done");
 
-           ArrayList<Float> finalVector = Calculate.getResultVector(target.getScenarioList(), target.getBestTargetsAsArray());
+            ArrayList<Float> finalVector = Calculate.getResultVector(target.getScenarioList(), target.getBestTargetsAsArray());
 
             target.printResult(finalVector);
         }

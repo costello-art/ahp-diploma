@@ -101,16 +101,13 @@ public class ScenarioInputDialog extends JDialog {
             target.getScenarioList().get(currentScenarioAndList).setMatrix(table.getMatrix());
             currentScenarioAndList++;
 
-            labelCurrentScenario.setText(
-                    String.format("<html>Матриця сценарія для цілі %s</html>",
-                            bestTargetNames.get(currentScenarioAndList)));
-
             if (currentScenarioAndList >= bestTargets.size()) {
                 labelScenarioTitle.setText("Всі сценарії введено");
                 buttonSaveScenarioMatrix.setEnabled(false);
-            }
-            else
-            {
+            } else {
+                labelCurrentScenario.setText(
+                        String.format("<html>Матриця сценарія для цілі %s</html>",
+                                bestTargetNames.get(currentScenarioAndList)));
                 buildMatrixForScenario(currentScenarioAndList);
             }
         }
