@@ -1,6 +1,7 @@
 package model;
 
 import model.math.Calculate;
+import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 
@@ -8,6 +9,7 @@ import java.util.ArrayList;
  * Created by Sviat on 19.11.14.
  */
 public class Scenario {
+    final static Logger log = Logger.getLogger(Scenario.class);
     private String name;
 
     private float[][] matrix;
@@ -24,6 +26,7 @@ public class Scenario {
     }
 
     public ArrayList<Float> getSelfVector() {
+        log.debug("vector size: " + selfVector.size());
         return selfVector;
     }
 

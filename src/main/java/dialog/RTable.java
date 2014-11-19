@@ -46,7 +46,7 @@ public class RTable extends JTable {
                 if (i == j) {
                     getModel().setValueAt(1, i, j);
                 } else {
-                    getModel().setValueAt(0, i, j);
+                    getModel().setValueAt(j, i, j); //TODO: remove this init
                 }
 
                 getColumnModel().getColumn(i).setPreferredWidth(60);

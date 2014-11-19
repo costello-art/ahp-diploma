@@ -120,6 +120,12 @@ public class Calculate {
         return targets;
     }
 
+    /**
+     * TODO: хеш карта з однаковими цілями перезаписує!!!
+     * @param firstTarget
+     * @param secondTarget
+     * @return
+     */
     public static Map<String, Float> buildAndNormalizeVectorOfBestTargets(Map<String, Float> firstTarget, Map<String, Float> secondTarget) {
         Map<String, Float> newVector = new HashMap<>();
 
@@ -146,6 +152,8 @@ public class Calculate {
         ArrayList<Float> resultVector = new ArrayList<>();
 
         float[][] matrix = new float[scenarioList.size()][scenarioList.size()];
+
+        log.debug("scenario size: " + scenarioList.size());
 
         for (int i = 0; i < scenarioList.size(); i++) {
             for (int j = 0; j < scenarioList.size(); j++) {
