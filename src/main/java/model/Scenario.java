@@ -26,4 +26,8 @@ public class Scenario {
     public ArrayList<Float> getSelfVector() {
         return selfVector;
     }
+
+    public String getName() {
+        return name;
+    }
 }

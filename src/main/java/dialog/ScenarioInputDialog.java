@@ -28,6 +28,8 @@ public class ScenarioInputDialog extends JDialog {
     private JButton buttonSaveScenarioList;
     private GlobalTarget target;
     private RTable table;
+    private int currentScenarioAndList = 0;
+    private Map<String, Float> bestTargets;
 
     public ScenarioInputDialog(StartWindow startWindow, GlobalTarget target) {
         this.target = target;
@@ -52,8 +54,8 @@ public class ScenarioInputDialog extends JDialog {
         panelScenarioInput.validate();
         panelScenarioInput.repaint();
 
-        table = new RTable(target.getScenario().size());
-        table.setHeaders(target.getScenario());
+        table = new RTable(target.getScenarioList().size());
+        table.setHeaders(target.getScenarioListNames());
 
         panelScenarioInput.add(table, "wrap");
 
@@ -75,11 +77,11 @@ public class ScenarioInputDialog extends JDialog {
                 scenarios.add(line);
             }
 
-            target.setScenarioList(scenarios);
+            target.setScenarioListNames(scenarios);
 
             ArrayList<String> bestTargetNames = new ArrayList<>();
 
-            Map<String, Float> bestTargets = target.getBestTargetsForActors();
+            bestTargets = target.getBestTargetsForActors();
 
             for (String t : bestTargets.keySet()) {
                 bestTargetNames.add(t);
@@ -87,24 +89,26 @@ public class ScenarioInputDialog extends JDialog {
 
             labelCurrentScenario.setText(
                     String.format("<html>Матриця сценарія <br>%s</br> для цілі %s</html>",
-                            target.getScenario().get(0),
-                            bestTargetNames.get(0)));
-            buildMatrixForScenario(0);
+                            target.getScenarioList().get(currentScenarioAndList).getName(),
+                            bestTargetNames.get(currentScenarioAndList)));
+            buildMatrixForScenario(currentScenarioAndList);
         }
     }
 
     private class SaveScenarioMatrix implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            panelScenarioInput.removeAll();
-            panelScenarioInput.validate();
-            panelScenarioInput.repaint();
+            target.getScenarioList().get(currentScenarioAndList).setMatrix(table.getMatrix());
+            currentScenarioAndList++;
 
-            table = new RTable(target.getScenario().size());
-            table.setHeaders(target.getScenario());
-
-            panelScenarioInput.validate();
-            panelScenarioInput.repaint();
+            if (currentScenarioAndList >= bestTargets.size()) {
+                labelScenarioTitle.setText("Всі сценарії введено");
+                buttonSaveScenarioMatrix.setEnabled(false);
+            }
+            else
+            {
+                buildMatrixForScenario(currentScenarioAndList);
+            }
         }
     }
 
