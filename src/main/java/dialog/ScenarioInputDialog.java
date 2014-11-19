@@ -28,7 +28,6 @@ public class ScenarioInputDialog extends JDialog {
     private JButton buttonSaveScenarioList;
     private GlobalTarget target;
     private RTable table;
-    private int currentScenarioAndList = 0;
     private Map<String, Double> bestTargets;
     private ArrayList<String> bestTargetNames;
 
@@ -89,15 +88,18 @@ public class ScenarioInputDialog extends JDialog {
 
             labelCurrentScenario.setText(
                     String.format("<html>Матриця сценарія для цілі %s</html>",
-                            bestTargetNames.get(currentScenarioAndList)));
+                            bestTargetNames.get(0)));
             buildMatrixForScenario();
         }
     }
 
     private class SaveScenarioMatrix implements ActionListener {
+        int currentScenarioAndList = 1;
+
         @Override
         public void actionPerformed(ActionEvent e) {
-            target.getScenarioList().get(currentScenarioAndList).setMatrix(table.getMatrix());
+            target.addScenarioMatrix(table.getMatrix());
+            //target.getScenarioList().get(currentScenarioAndList).setMatrix(table.getMatrix());
             currentScenarioAndList++;
 
             if (currentScenarioAndList >= bestTargets.size()) {

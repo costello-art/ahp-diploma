@@ -17,13 +17,12 @@ public class Calculate {
      * @param matrix матриця оцінок
      * @return власний вектор
      */
-    @Deprecated
-    public static ArrayList<Float> selfVectorForMatrix(float[][] matrix) {
-        ArrayList<Float> selfVector = new ArrayList<>();
+    public static ArrayList<Double> selfVectorForMatrix(double[][] matrix) {
+        ArrayList<Double> selfVector = new ArrayList<>();
 
         int length = matrix.length;
 
-        float rowMul = 1;
+        double rowMul = 1;
         for (int i = 0; i < length; i++) {
             for (int j = 0; j < length; j++) {
                 rowMul *= matrix[i][j];
@@ -33,14 +32,14 @@ public class Calculate {
             selfVector.add(rowMul);
         }
 
-        float allRowSum = 0;
-        for (float row : selfVector) {
+        double allRowSum = 0;
+        for (double row : selfVector) {
             allRowSum += row;
         }
 
         for (int i = 0; i < selfVector.size(); i++) {
-            float calculated = selfVector.get(i) / allRowSum;
-            calculated = (float) (Math.round(calculated * 100.0) / 100.0);
+            double calculated = selfVector.get(i) / allRowSum;
+            calculated = (Math.round(calculated * 100.0) / 100.0);
             selfVector.set(i, calculated);
         }
 
@@ -151,18 +150,10 @@ public class Calculate {
         return normalizeWeightVectorOfBestTargets(newVector);
     }
 
-    public static ArrayList<Double> getResultVector(ArrayList<Scenario> scenarioList, ArrayList<Double> bestVector) {
+    public static ArrayList<Double> getResultVector(ArrayList<double[][]> scenarioMatrices, ArrayList<Double> bestVector) {
+        double[][] m = buldMatrixFromVectors(scenarioMatrices);
+
         ArrayList<Double> resultVector = new ArrayList<>();
-
-        double[][] matrix = new double[scenarioList.size()][scenarioList.size()];
-
-        log.debug("scenario size: " + scenarioList.size());
-
-        for (int i = 0; i < scenarioList.size(); i++) {
-            for (int j = 0; j < scenarioList.size(); j++) {
-                matrix[j][i] = scenarioList.get(i).getSelfVector().get(j);
-            }
-        }
 
         double[] v = new double[bestVector.size()];
 
@@ -170,13 +161,31 @@ public class Calculate {
             v[i] = bestVector.get(i);
         }
 
-        double[] arrayResult = multiply(matrix, v);
+        double[] arrayResult = multiply(m, v);
 
         for (double anArrayResult : arrayResult) {
             resultVector.add(anArrayResult);
         }
 
         return resultVector;
+    }
+
+    private static double[][] buldMatrixFromVectors(ArrayList<double[][]> scenarioMatrices) {
+        double[][] matrix = new double[scenarioMatrices.get(0).length][scenarioMatrices.get(0).length];
+
+
+        int col = 0;
+        for (double[][] m : scenarioMatrices) {
+            ArrayList<Double> selfVector = selfVectorForMatrix(m);
+
+            for (int i = 0; i < scenarioMatrices.get(0).length; i++) {
+                matrix[col][i] = selfVector.get(i);
+            }
+
+            col++;
+        }
+
+        return matrix;
     }
 
     // matrix-vector multiplication (y = matrix * vector)

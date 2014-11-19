@@ -18,6 +18,8 @@ public class GlobalTarget extends Target {
     private ArrayList<Actor> sortedByWeightActorList;
 
     private Map<String, Double> bestTargetsForActors;
+
+    private ArrayList<double[][]> scenarioMatrixForBestTarget;
     private ArrayList<Scenario> scenarioList;
 
     /**
@@ -30,6 +32,7 @@ public class GlobalTarget extends Target {
         unsortedActorList = new ArrayList<>();
         sortedByWeightActorList = new ArrayList<>();
         scenarioList = new ArrayList<>();
+        scenarioMatrixForBestTarget = new ArrayList<>();
     }
 
     private void initMatrix() {
@@ -76,6 +79,14 @@ public class GlobalTarget extends Target {
         }
 
         return names;
+    }
+
+    public void addScenarioMatrix(double[][] matrix) {
+        scenarioMatrixForBestTarget.add(matrix);
+    }
+
+    public ArrayList<double[][]> getScenarioMatrixForBestTarget() {
+        return scenarioMatrixForBestTarget;
     }
 
     public ArrayList<Actor> getActorsList() {
