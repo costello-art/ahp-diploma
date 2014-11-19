@@ -1,7 +1,7 @@
 package dialog;
 
 import model.GlobalTarget;
-import model.math.Calculate;
+import util.Calculate;
 import net.miginfocom.swing.MigLayout;
 import org.apache.log4j.Logger;
 
@@ -68,8 +68,7 @@ public class StartWindow extends JFrame {
     }
 
     private void addMatrix() {
-        actorTargetMatrix = new RTable(target.getActorCount());
-        actorTargetMatrix.setHeaders(target.getActorsNames());
+        actorTargetMatrix = new RTable(target.getActorsNames());
 
         panelMatrix.setLayout(migLayout);
         panelMatrix.add(actorTargetMatrix, "w 100%, h 100%");
@@ -108,7 +107,7 @@ public class StartWindow extends JFrame {
 
             log.debug("scenario input has been done");
 
-            ArrayList<Float> finalVector = Calculate.getResultVector(target.getScenarioList(), target.getBestTargetsAsArray());
+            ArrayList<Double> finalVector = Calculate.getResultVector(target.getScenarioList(), target.getBestTargetsAsArray());
 
             target.printResult(finalVector);
         }

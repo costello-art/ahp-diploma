@@ -50,7 +50,7 @@ public class ActorsInputDialog extends JDialog {
 
             target.addActor(textFieldActorName.getText(), targets);
             labelIsActorAdded.setText("<html>Актор <b>"+textFieldActorName.getText()+"</b> доданий. Кількість цілей: "+targets.size()+"</html>");
-            labelActorCount.setText("Всього акторів: " + target.getActorCount());
+            labelActorCount.setText("Всього акторів: " + target.getActorsList().size());
         }
     }
 

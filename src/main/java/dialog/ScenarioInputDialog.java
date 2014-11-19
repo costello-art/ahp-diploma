@@ -29,7 +29,7 @@ public class ScenarioInputDialog extends JDialog {
     private GlobalTarget target;
     private RTable table;
     private int currentScenarioAndList = 0;
-    private Map<String, Float> bestTargets;
+    private Map<String, Double> bestTargets;
     private ArrayList<String> bestTargetNames;
 
     public ScenarioInputDialog(StartWindow startWindow, GlobalTarget target) {
@@ -55,8 +55,7 @@ public class ScenarioInputDialog extends JDialog {
         panelScenarioInput.validate();
         panelScenarioInput.repaint();
 
-        table = new RTable(target.getScenarioList().size());
-        table.setHeaders(target.getScenarioListNames());
+        table = new RTable(target.getScenarioListNames());
 
         panelScenarioInput.add(table, "wrap");
 
@@ -78,7 +77,7 @@ public class ScenarioInputDialog extends JDialog {
                 scenarios.add(line);
             }
 
-            target.setScenarioListNames(scenarios);
+            target.setScenarioList(scenarios);
 
             bestTargetNames = new ArrayList<>();
 

@@ -31,7 +31,7 @@ abstract class Target {
      * Set matrix, which was entered by user
      * @param matrix square matrix
      */
-    abstract void setMatrix(double[][] matrix);
+    public abstract void setMatrix(double[][] matrix);
 
     public double[][] getMatrix() {
         return matrix;

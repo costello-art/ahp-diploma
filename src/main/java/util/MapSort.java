@@ -1,17 +1,19 @@
 package util;
 
+import model.Actor;
+
 import java.util.*;
 import java.util.Map.Entry;
 
 public class MapSort {
-    public static Map<String, Double> sortByComparator(Map<String, Double> unsortMap, final boolean asc) {
+    public static Map<Actor, Double> sortByComparator(Map<Actor, Double> unsortMap, final boolean asc) {
 
-        List<Entry<String, Double>> list = new LinkedList<>(unsortMap.entrySet());
+        List<Entry<Actor, Double>> list = new LinkedList<>(unsortMap.entrySet());
 
         // Sorting the list based on values
-        Collections.sort(list, new Comparator<Entry<String, Double>>() {
-            public int compare(Entry<String, Double> o1,
-                               Entry<String, Double> o2) {
+        Collections.sort(list, new Comparator<Entry<Actor, Double>>() {
+            public int compare(Entry<Actor, Double> o1,
+                               Entry<Actor, Double> o2) {
                 if (asc) {
                     return o1.getValue().compareTo(o2.getValue());
                 } else {
@@ -22,8 +24,8 @@ public class MapSort {
         });
 
         // Maintaining insertion asc with the help of LinkedList
-        Map<String, Double> sortedMap = new LinkedHashMap<>();
-        for (Entry<String, Double> entry : list) {
+        Map<Actor, Double> sortedMap = new LinkedHashMap<>();
+        for (Entry<Actor, Double> entry : list) {
             sortedMap.put(entry.getKey(), entry.getValue());
         }
 

@@ -13,8 +13,10 @@ import java.util.Map;
 public class GlobalTarget extends Target {
     final static Logger log = Logger.getLogger(GlobalTarget.class);
 
-    private ArrayList<Actor> actorsList;
-    private Map<String, Double> actorsWeight;
+    private ArrayList<Actor> unsortedActorList;
+
+    private ArrayList<Actor> sortedByWeightActorList;
+
     private Map<String, Double> bestTargetsForActors;
     private ArrayList<Scenario> scenarioList;
 
@@ -25,13 +27,12 @@ public class GlobalTarget extends Target {
      */
     public GlobalTarget(String target) {
         this.name = target;
-        actorsList = new ArrayList<>();
-        actorsWeight = new HashMap<>();
+        unsortedActorList = new ArrayList<>();
     }
 
     private void initMatrix() {
-        matrix = new double[actorsList.size()][actorsList.size()];
-        for (int i = 0; i < actorsList.size(); i++) {
+        matrix = new double[unsortedActorList.size()][unsortedActorList.size()];
+        for (int i = 0; i < unsortedActorList.size(); i++) {
             matrix[i][i] = 1;
         }
     }
@@ -46,10 +47,20 @@ public class GlobalTarget extends Target {
         return scenarioList;
     }
 
+    public ArrayList<String> getScenarioListNames() {
+        ArrayList<String> names = new ArrayList<>();
+
+        for (Scenario sc : scenarioList) {
+            names.add(sc.getName());
+        }
+
+        return names;
+    }
+
     public void addActor(String name, ArrayList<String> targets) {
         log.info(String.format("Added actor %s with target count %d", name, targets.size()));
 
-        actorsList.add(new Actor(name, targets));
+        unsortedActorList.add(new Actor(name, targets));
         initMatrix();
     }
 
@@ -65,9 +76,8 @@ public class GlobalTarget extends Target {
         return names;
     }
 
-
     public ArrayList<Actor> getActorsList() {
-        return actorsList;
+        return sortedByWeightActorList;
     }
 
     @Override
@@ -75,19 +85,27 @@ public class GlobalTarget extends Target {
         this.matrix = matrix;
         initSelfVector();
 
+        Map<Actor, Double> actorsWeight = new HashMap<>();
+
         for (int i = 0; i < selfVector.size(); i++) {
-            actorsWeight.put(actorsList.get(i).getName(), selfVector.get(i));
-            log.debug(String.format("Actor: %s, weight: %s", actorsList.get(i).getName(), selfVector.get(i)));
+            Actor a = unsortedActorList.get(i);
+            a.setWeight(selfVector.get(i));
+            actorsWeight.put(a, selfVector.get(i));
+            log.debug(String.format("Actor: %s, weight: %s", unsortedActorList.get(i).getName(), selfVector.get(i)));
         }
 
         actorsWeight = MapSort.sortByComparator(actorsWeight, false);
+
+        for (Actor actor : actorsWeight.keySet()) {
+            sortedByWeightActorList.add(actor);
+        }
     }
 
     public void setBestTargetsForActors(Map<String, Double> bestTargets) {
         bestTargetsForActors = bestTargets;
     }
 
-    public void printResult(ArrayList<Float> finalVector) {
+    public void printResult(ArrayList<Double> finalVector) {
         for (int i = 0; i < scenarioList.size(); i++) {
             log.debug(String.format("Result for scenario %s: %f", scenarioList.get(i).getName(), finalVector.get(i)));
         }
@@ -101,5 +119,9 @@ public class GlobalTarget extends Target {
         }
 
         return actorsWeightAsArray;
+    }
+
+    public Map<String, Double> getBestTargetsForActors() {
+        return bestTargetsForActors;
     }
 }

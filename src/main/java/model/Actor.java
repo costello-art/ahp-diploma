@@ -16,6 +16,8 @@ public class Actor extends Target {
     private ArrayList<String> targetList;
     private Map<String, Double> targetWeight;
 
+    private double weight;
+
     /**
      * Актор (вчитель, системний аналітик тощо)
      * @param name назва цього актора
@@ -28,6 +30,14 @@ public class Actor extends Target {
 
     public ArrayList<String> getTargets() {
         return targetList;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
     }
 
     @Override

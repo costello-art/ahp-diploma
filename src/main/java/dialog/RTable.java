@@ -15,13 +15,13 @@ public class RTable extends JTable {
     private double[][] matrix;
 
     /**
-     * Square actorCount of the table
+     * Таблиця оцінок
      *
-     * @param actorCount actorCount
+     * @param elementHeaders кількість акторів/цілей тощо
      */
-    public RTable(int actorCount) {
+    public RTable(ArrayList<String> elementHeaders) {
         super();
-        size = actorCount + 1;
+        size = elementHeaders.size() + 1;
 
         setModel(new DefaultTableModel(size, size));
 
@@ -29,10 +29,12 @@ public class RTable extends JTable {
 
         reset();
 
+        setHeaders(elementHeaders);
+
         getModel().addTableModelListener(new ModelListener());
     }
 
-    public void setHeaders(ArrayList<String> headers) {
+    private void setHeaders(ArrayList<String> headers) {
         //set top and left header
         for (int i = 1; i < size; i++) {
             getModel().setValueAt(headers.get(i - 1), i, 0);

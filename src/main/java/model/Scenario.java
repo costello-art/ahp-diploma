@@ -10,7 +10,7 @@ public class Scenario extends Target {
     }
 
     @Override
-    void setMatrix(double[][] matrix) {
+    public void setMatrix(double[][] matrix) {
         this.matrix = matrix;
         initSelfVector();
     }

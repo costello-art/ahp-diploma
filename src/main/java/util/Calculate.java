@@ -1,7 +1,6 @@
 package util;
 
 import model.Scenario;
-import model.ScenarioOld;
 import org.apache.log4j.Logger;
 
 import java.util.*;
@@ -18,6 +17,7 @@ public class Calculate {
      * @param matrix матриця оцінок
      * @return власний вектор
      */
+    @Deprecated
     public static ArrayList<Float> selfVectorForMatrix(float[][] matrix) {
         ArrayList<Float> selfVector = new ArrayList<>();
 
@@ -101,35 +101,36 @@ public class Calculate {
     /**
      * Нормалізація вектора ваг кращих цілей
      *
-     * @param vector вектор для нормалізації
+     * @param targets вектор для нормалізації
      * @return нормалізований вектор такого ж розміру
      */
-    public static Map<String, Float> normalizeWeightVectorOfBestTargets(Map<String, Float> targets) {
-        log.debug("Going to normalize targets");
+    public static Map<String, Double> normalizeWeightVectorOfBestTargets(Map<String, Double> targets) {
+        log.info("Going to normalize targets");
 
-        float sume = 0;
+        double sume = 0;
         for (String target : targets.keySet()) {
             sume += targets.get(target);
         }
 
         for (String target : targets.keySet()) {
-            float newValue = (float) (targets.get(target) * 100.0 / sume);
+            double newValue = (float) (targets.get(target) * 100.0 / sume);
             targets.put(target, newValue);
-            log.debug("calculated new norm value: " + newValue);
+            log.debug("calculated new normal value: " + newValue);
         }
 
         return targets;
     }
 
     /**
-     * TODO: хеш карта з однаковими цілями перезаписує!!!
+     * Побудова вектора із двох найкращих цілей двох акторів.
+     * Також цей вектор нормалізується. Прив’язка значення-цілі зберігається.
      *
-     * @param firstTarget
-     * @param secondTarget
-     * @return
+     * @param firstTarget цілі першого актора
+     * @param secondTarget цілі другого актора
+     * @return збудований вектор розміром 4
      */
-    public static Map<String, Float> buildAndNormalizeVectorOfBestTargets(Map<String, Float> firstTarget, Map<String, Float> secondTarget) {
-        Map<String, Float> newVector = new HashMap<>();
+    public static Map<String, Double> buildAndNormalizeVectorOfBestTargets(Map<String, Double> firstTarget, Map<String, Double> secondTarget) {
+        Map<String, Double> newVector = new HashMap<>();
 
         for (String targetName : firstTarget.keySet()) {
             newVector.put(targetName, firstTarget.get(targetName));
@@ -150,7 +151,7 @@ public class Calculate {
         return normalizeWeightVectorOfBestTargets(newVector);
     }
 
-    public static ArrayList<Double> getResultVector(ArrayList<Scenario> scenarioList, ArrayList<Float> bestVector) {
+    public static ArrayList<Double> getResultVector(ArrayList<Scenario> scenarioList, ArrayList<Double> bestVector) {
         ArrayList<Double> resultVector = new ArrayList<>();
 
         double[][] matrix = new double[scenarioList.size()][scenarioList.size()];
