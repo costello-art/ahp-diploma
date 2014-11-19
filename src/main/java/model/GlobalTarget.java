@@ -3,6 +3,7 @@ package model;
 import model.math.Calculate;
 import org.apache.log4j.Logger;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -147,5 +148,11 @@ public class GlobalTarget implements IGlobalTargetObject {
 
     public ArrayList<String> getScenarioListNames() {
         return scenarioListNames;
+    }
+
+    public void printResult(ArrayList<Float> finalVector) {
+        for (int i = 0; i < scenarioList.size(); i++) {
+            log.debug(String.format("Result for scenario %s: %f", scenarioList.get(i).getName(), finalVector.get(i)));
+        }
     }
 }
