@@ -86,15 +86,15 @@ public class ScenarioInputDialog extends JDialog {
                 bestTargetNames.add(t);
             }
 
-            labelCurrentScenario.setText(
-                    String.format("<html>Матриця сценарія для цілі %s</html>",
-                            bestTargetNames.get(0)));
+            log.debug("best targets size: = " +bestTargetNames.size());
+
+            labelCurrentScenario.setText(String.format("<html>Матриця сценарія для цілі %s</html>", bestTargetNames.get(0)));
             buildMatrixForScenario();
         }
     }
 
     private class SaveScenarioMatrix implements ActionListener {
-        int currentScenarioAndList = 1;
+        int currentScenarioAndList = 0;
 
         @Override
         public void actionPerformed(ActionEvent e) {

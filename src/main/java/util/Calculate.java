@@ -151,7 +151,7 @@ public class Calculate {
     }
 
     public static ArrayList<Double> getResultVector(ArrayList<double[][]> scenarioMatrices, ArrayList<Double> bestVector) {
-        double[][] m = buldMatrixFromVectors(scenarioMatrices);
+        double[][] m = buildMatrixFromVectors(scenarioMatrices, bestVector.size());
 
         ArrayList<Double> resultVector = new ArrayList<>();
 
@@ -170,16 +170,15 @@ public class Calculate {
         return resultVector;
     }
 
-    private static double[][] buldMatrixFromVectors(ArrayList<double[][]> scenarioMatrices) {
+    private static double[][] buildMatrixFromVectors(ArrayList<double[][]> scenarioMatrices, int size) {
         double[][] matrix = new double[scenarioMatrices.get(0).length][scenarioMatrices.get(0).length];
-
 
         int col = 0;
         for (double[][] m : scenarioMatrices) {
             ArrayList<Double> selfVector = selfVectorForMatrix(m);
 
             for (int i = 0; i < scenarioMatrices.get(0).length; i++) {
-                matrix[col][i] = selfVector.get(i);
+                matrix[i][col] = selfVector.get(i);
             }
 
             col++;
