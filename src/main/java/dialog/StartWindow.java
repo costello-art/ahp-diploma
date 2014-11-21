@@ -25,8 +25,6 @@ public class StartWindow extends JFrame {
     private JPanel panelRoot;
     private JPanel panelMatrix;
     private JButton buttonStartScenarioInput;
-    private JButton buttonSaveObject;
-    private JButton buttonLoadObject;
     private GlobalTarget target;
     private RTable actorTargetMatrix;
 
@@ -48,36 +46,6 @@ public class StartWindow extends JFrame {
         buttonAddActors.addActionListener(new OpenActorInputDialog(this));
         buttonActorTargetMatrixInputDone.addActionListener(new OpenActorsTargetsInput(this));
         buttonStartScenarioInput.addActionListener(new StartScenarioInput(this));
-
-        buttonSaveObject.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(new File("globalTarget")));
-
-                    oos.writeObject(target);
-                    oos.close();
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
-            }
-        });
-
-        buttonLoadObject.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    ObjectInputStream ois = new ObjectInputStream(new FileInputStream(new File("globalTarget")));
-                    target = (GlobalTarget) ois.readObject();
-                    ois.close();
-
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                } catch (ClassNotFoundException e1) {
-                    e1.printStackTrace();
-                }
-            }
-        });
     }
 
     private class OpenActorInputDialog implements ActionListener {
