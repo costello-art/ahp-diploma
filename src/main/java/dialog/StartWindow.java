@@ -33,10 +33,9 @@ public class StartWindow extends JFrame {
     public static void main(String[] args) {
         log.debug("ok");
         StartWindow start = new StartWindow();
-        start.setTitle("Диплом Горошка!");
+        start.setTitle("Магістерська робота Горошка Є.М., ІСМм-21");
 
         start.setSize(800, 400);
-        start.setTitle("Диплом Горошка");
         start.setContentPane(start.panelRoot);
         start.setVisible(true);
 

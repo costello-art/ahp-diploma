@@ -7,12 +7,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Collections;
 
 public class ShowResultDialog extends JDialog {
     private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
     private JLabel labelResult;
+    private JLabel labelVector;
+    private JTextArea textAreaScenarioVector;
     private GlobalTarget target;
 
     public ShowResultDialog(StartWindow startWindow, GlobalTarget target) {
@@ -35,9 +38,17 @@ public class ShowResultDialog extends JDialog {
     }
 
     private void showResult() {
-        Scenario s = target.getScenarioList().get(0);
-        double value = target.getFinalVector().get(0);
+        double max = Collections.max(target.getFinalVector());
+        int index = target.getFinalVector().indexOf(max);
+        Scenario s = target.getScenarioList().get(index);
+        double value = target.getFinalVector().get(index);
 
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < target.getFinalVector().size(); i++) {
+            sb.append(target.getScenarioList().get(i).getName() + " -> " + target.getFinalVector().get(i) + "\n");
+        }
+
+        textAreaScenarioVector.setText(sb.toString());
         labelResult.setText(String.format("Сценарій %s із результатом %f", s.getName(), value));
     }
 
