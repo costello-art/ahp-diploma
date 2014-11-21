@@ -202,9 +202,7 @@ public class Calculate {
 
         System.out.println();
 
-        for (int i = 0; i < vector.length; i++) {
-            System.out.println(vector[i]);
-        }
+
 
         if (vector.length != n) throw new RuntimeException("Illegal matrix dimensions.");
 
@@ -213,6 +211,11 @@ public class Calculate {
         for (int i = 0; i < m; i++)
             for (int j = 0; j < n; j++)
                 y[i] += (matrix[i][j] * vector[j]);
+
+
+        for (int i = 0; i < y.length; i++) {
+            System.out.println(y[i]);
+        }
 
         return y;
     }

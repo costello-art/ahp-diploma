@@ -141,8 +141,11 @@ public class StartWindow extends JFrame {
             log.debug("scenario input has been done");
 
             ArrayList<Double> finalVector = Calculate.getResultVector(target.getScenarioMatrixForBestTarget(), target.getBestTargetsAsArray());
+            target.setFinalVector(finalVector);
 
-            target.printResult(finalVector);
+            new ShowResultDialog(startWindow, target).display();
+
+          //  target.printResult(finalVector);
         }
     }
 }

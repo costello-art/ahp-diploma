@@ -22,6 +22,7 @@ public class GlobalTarget extends Target implements Serializable {
 
     private ArrayList<double[][]> scenarioMatrixForBestTarget;
     private ArrayList<Scenario> scenarioList;
+    private ArrayList<Double> finalVector;
 
     /**
      * Глобальна мета, яка містить акторів та їх цілі
@@ -137,5 +138,13 @@ public class GlobalTarget extends Target implements Serializable {
 
     public Map<String, Double> getBestTargetsForActors() {
         return bestTargetsForActors;
+    }
+
+    public void setFinalVector(ArrayList<Double> finalVector) {
+        this.finalVector = finalVector;
+    }
+
+    public ArrayList<Double> getFinalVector() {
+        return finalVector;
     }
 }
