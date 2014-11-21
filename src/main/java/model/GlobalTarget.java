@@ -3,6 +3,7 @@ package model;
 import org.apache.log4j.Logger;
 import util.MapSort;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,7 +11,7 @@ import java.util.Map;
 /**
  * Created by Sviat on 12.11.14.
  */
-public class GlobalTarget extends Target {
+public class GlobalTarget extends Target implements Serializable {
     final static Logger log = Logger.getLogger(GlobalTarget.class);
 
     private ArrayList<Actor> unsortedActorList;

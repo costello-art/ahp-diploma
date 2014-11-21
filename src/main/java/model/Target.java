@@ -2,12 +2,13 @@ package model;
 
 import org.apache.log4j.Logger;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by Sviat on 19.11.14.
  */
-abstract class Target {
+abstract class Target implements Serializable {
     private final static Logger log = Logger.getLogger(Target.class);
 
     protected String name;

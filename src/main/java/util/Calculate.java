@@ -124,7 +124,7 @@ public class Calculate {
      * Побудова вектора із двох найкращих цілей двох акторів.
      * Також цей вектор нормалізується. Прив’язка значення-цілі зберігається.
      *
-     * @param firstTarget цілі першого актора
+     * @param firstTarget  цілі першого актора
      * @param secondTarget цілі другого актора
      * @return збудований вектор розміром 4
      */
@@ -171,7 +171,7 @@ public class Calculate {
     }
 
     private static double[][] buildMatrixFromVectors(ArrayList<double[][]> scenarioMatrices, int size) {
-        double[][] matrix = new double[scenarioMatrices.get(0).length][scenarioMatrices.get(0).length];
+        double[][] matrix = new double[scenarioMatrices.get(0)[0].length][size];
 
         int col = 0;
         for (double[][] m : scenarioMatrices) {
@@ -191,6 +191,20 @@ public class Calculate {
     public static double[] multiply(double[][] matrix, double[] vector) {
         int m = matrix.length;
         int n = matrix[0].length;
+
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[i].length; j++) {
+                System.out.print(matrix[i][j] + " ");
+            }
+
+            System.out.println();
+        }
+
+        System.out.println();
+
+        for (int i = 0; i < vector.length; i++) {
+            System.out.println(vector[i]);
+        }
 
         if (vector.length != n) throw new RuntimeException("Illegal matrix dimensions.");
 
