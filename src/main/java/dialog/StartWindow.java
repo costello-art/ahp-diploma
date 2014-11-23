@@ -55,6 +55,26 @@ public class StartWindow extends JFrame {
         buttonRunSecond.addActionListener(new RunSecond(this));
 
         buttonSaveActorMatrix.addActionListener(new OnMatrixSaved(this));
+
+        reInitButtonsForAlog();
+    }
+
+    public void reInitButtonsForAlog() {
+        panelMatrix.removeAll();
+        panelMatrix.validate();
+        panelMatrix.repaint();
+
+        if (!DConfig.isSecondAlgo) {
+            buttonRunSecond.setVisible(false);
+            buttonSaveActorMatrix.setVisible(false);
+        }
+        else {
+            buttonRunSecond.setVisible(true);
+            buttonSaveActorMatrix.setVisible(true);
+            buttonAddActors.setVisible(false);
+            buttonStartScenarioInput.setVisible(false);
+            buttonActorTargetMatrixInputDone.setVisible(false);
+        }
     }
 
     private class OpenActorInputDialog implements ActionListener {
@@ -83,6 +103,10 @@ public class StartWindow extends JFrame {
         else {
             actorTargetMatrix = new RTable(starget.getActors());
         }
+
+        panelMatrix.removeAll();
+        panelMatrix.validate();
+        panelMatrix.repaint();
 
         panelMatrix.setLayout(migLayout);
         panelMatrix.add(actorTargetMatrix, "w 100%, h 100%");
@@ -125,6 +149,7 @@ public class StartWindow extends JFrame {
             target.setFinalVector(finalVector);
 
             new ShowResultDialog(startWindow, target).display();
+            reInitButtonsForAlog();
         }
     }
 
