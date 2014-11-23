@@ -4,6 +4,7 @@ import dialog.secondAlgo.SActorsInput;
 import dialog.secondAlgo.SScenarioInput;
 import dialog.secondAlgo.SScenarioMatrix;
 import dialog.secondAlgo.STargetInput;
+import model.DConfig;
 import model.GlobalTarget;
 import model.SGlobalTarget;
 import util.Calculate;
@@ -32,6 +33,7 @@ public class StartWindow extends JFrame {
     private JPanel panelMatrix;
     private JButton buttonStartScenarioInput;
     private JButton buttonRunSecond;
+    private JButton buttonSaveActorMatrix;
     private GlobalTarget target;
     private RTable actorTargetMatrix;
 
@@ -55,6 +57,8 @@ public class StartWindow extends JFrame {
         buttonStartScenarioInput.addActionListener(new StartScenarioInput(this));
 
         buttonRunSecond.addActionListener(new RunSecond(this));
+
+        buttonSaveActorMatrix.addActionListener(new OnMatrixSaved(this));
     }
 
     private class OpenActorInputDialog implements ActionListener {
@@ -77,7 +81,12 @@ public class StartWindow extends JFrame {
     }
 
     private void addMatrix() {
-        actorTargetMatrix = new RTable(target.getActorsNames());
+        if (!DConfig.isSecondAlgo) {
+            actorTargetMatrix = new RTable(target.getActorsNames());
+        }
+        else {
+            actorTargetMatrix = new RTable(starget.getActors());
+        }
 
         panelMatrix.setLayout(migLayout);
         panelMatrix.add(actorTargetMatrix, "w 100%, h 100%");
@@ -120,8 +129,6 @@ public class StartWindow extends JFrame {
             target.setFinalVector(finalVector);
 
             new ShowResultDialog(startWindow, target).display();
-
-          //  target.printResult(finalVector);
         }
     }
 
@@ -136,6 +143,19 @@ public class StartWindow extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             starget = new SActorsInput(startWindow, starget).display();
+            addMatrix();
+        }
+    }
+
+    private class OnMatrixSaved implements ActionListener {
+        private StartWindow startWindow;
+
+        public OnMatrixSaved(StartWindow startWindow) {
+            this.startWindow = startWindow;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
             starget = new STargetInput(startWindow, starget).display();
             starget = new SScenarioInput(startWindow, starget).display();
             starget = new SScenarioMatrix(startWindow, starget).display();

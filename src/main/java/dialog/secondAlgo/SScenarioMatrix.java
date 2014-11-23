@@ -62,7 +62,7 @@ public class SScenarioMatrix extends JDialog {
         public void actionPerformed(ActionEvent e) {
             current++;
 
-            if (current >= target.getActors().size()) {
+            if (current >= target.getTargets().size()) {
                 labelMatrixForActor.setText("Всі матриці введено");
                 buttonNext.setEnabled(false);
                 return;
@@ -75,13 +75,13 @@ public class SScenarioMatrix extends JDialog {
     }
 
     private void initMatrixInputForActor(int current) {
-        labelMatrixForActor.setText("Введіть матрицю для цілі: " + target.getTargets().get(current));
+        labelMatrixForActor.setText("Введіть сценарій для цілі: " + target.getTargets().get(current));
 
         panelMatrix.removeAll();
         panelMatrix.validate();
         panelMatrix.repaint();
 
-        table = new RTable(target.getActors());
+        table = new RTable(target.getScenarios());
         panelMatrix.add(table, "wrap");
 
         panelMatrix.validate();
