@@ -175,7 +175,6 @@ public class Calculate {
         int col = 0;
         for (double[][] m : scenarioMatrices) {
             ArrayList<Double> selfVector = selfVectorForMatrix(m);
-            selfVector = normalizeVector(selfVector);
 
             for (int i = 0; i < scenarioMatrices.get(0).length; i++) {
                 matrix[i][col] = selfVector.get(i);
