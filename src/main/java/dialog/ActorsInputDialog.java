@@ -26,7 +26,6 @@ public class ActorsInputDialog extends JDialog {
     public ActorsInputDialog(StartWindow startWindow, GlobalTarget target) {
         this.target = target;
         setSize(new Dimension(640, 480));
-        setResizable(false);
         setLocationRelativeTo(startWindow);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setTitle("Введення акторів та їх цілей");

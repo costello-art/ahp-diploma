@@ -34,11 +34,9 @@ public class ScenarioInputDialog extends JDialog {
     public ScenarioInputDialog(StartWindow startWindow, GlobalTarget target) {
         this.target = target;
         setSize(new Dimension(640, 480));
-
-        setResizable(false);
         setLocationRelativeTo(startWindow);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setTitle("Введення акторів та їх цілей");
+        setTitle("Введення сценаріїв та їх матриць");
         setContentPane(panelRoot);
         setModal(true);
 
@@ -86,7 +84,7 @@ public class ScenarioInputDialog extends JDialog {
                 bestTargetNames.add(t);
             }
 
-            log.debug("best targets size: = " +bestTargetNames.size());
+            log.debug("best targets size: = " + bestTargetNames.size());
 
             labelCurrentScenario.setText(String.format("<html>Матриця сценарія для цілі %s</html>", bestTargetNames.get(0)));
             buildMatrixForScenario();

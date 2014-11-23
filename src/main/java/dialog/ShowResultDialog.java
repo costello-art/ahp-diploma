@@ -25,7 +25,7 @@ public class ShowResultDialog extends JDialog {
         setContentPane(contentPane);
         setModal(true);
         setLocationRelativeTo(startWindow);
-
+        setTitle("Результат моделювання");
         setSize(new Dimension(640, 480));
 
         buttonContinueModdeling.addActionListener(new ActionListener() {
