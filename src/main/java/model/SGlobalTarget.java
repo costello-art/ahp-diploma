@@ -83,8 +83,8 @@ public class SGlobalTarget {
         return targetsMatrices;
     }
 
-    public void setTargetsMatrices(ArrayList<double[][]> targetsMatrices) {
-        this.targetsMatrices = targetsMatrices;
+    public void addTargetMatrix(double[][] matrix) {
+        targetsMatrices.add(matrix);
     }
 
     public ArrayList<double[][]> getScenariosMatrices() {
@@ -114,11 +114,10 @@ public class SGlobalTarget {
     public void calculate() {
         actorsSelfVector = Calculate.selfVectorForMatrix(actorsMatrix);
 
-        matrixFromScenariosSelfVectors = Calculate.buildMatrixFromVectors(scenariosMatrices, scenariosMatrices.get(0)[0].length);
-        matrixFromTargetsSelfVectors = Calculate.buildMatrixFromVectors(targetsMatrices, targetsMatrices.get(0)[0].length);
+        matrixFromScenariosSelfVectors = Calculate.buildMatrixFromVectors(scenariosMatrices, targets.size());
+        matrixFromTargetsSelfVectors = Calculate.buildMatrixFromVectors(targetsMatrices, targets.size());
 
         double[][] sceOnTar = Calculate.multiplyMatrix(matrixFromTargetsSelfVectors, matrixFromScenariosSelfVectors);
-
 
         double[] selfArray = new double[actorsSelfVector.size()];
 

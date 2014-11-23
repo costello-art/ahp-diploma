@@ -1,9 +1,6 @@
 package dialog;
 
-import dialog.secondAlgo.SActorsInput;
-import dialog.secondAlgo.SScenarioInput;
-import dialog.secondAlgo.SScenarioMatrix;
-import dialog.secondAlgo.STargetInput;
+import dialog.secondAlgo.*;
 import model.DConfig;
 import model.GlobalTarget;
 import model.SGlobalTarget;
@@ -15,7 +12,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.*;
 import java.util.ArrayList;
 
 /**
@@ -152,15 +148,17 @@ public class StartWindow extends JFrame {
 
         public OnMatrixSaved(StartWindow startWindow) {
             this.startWindow = startWindow;
-
-            starget.setActorsMatrix(actorTargetMatrix.getMatrix());
         }
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            starget.setActorsMatrix(actorTargetMatrix.getMatrix());
             starget = new STargetInput(startWindow, starget).display();
+            starget = new STargetMatrix(startWindow, starget).display();
             starget = new SScenarioInput(startWindow, starget).display();
             starget = new SScenarioMatrix(startWindow, starget).display();
+            starget.calculate();
+            new SShowResult(startWindow, starget).display();
         }
     }
 }

@@ -11,19 +11,19 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class SScenarioMatrix extends JDialog {
+public class STargetMatrix extends JDialog {
     private static MigLayout migLayout = new MigLayout("ins 0, hidemode 3", "", "[][][]");
     final static Logger log = Logger.getLogger(SScenarioMatrix.class);
 
     private JPanel contentPane;
     private JButton buttonOK;
-    private JLabel labelMatrixForActor;
-    private JButton buttonNext;
+    private JLabel labelTitle;
     private JPanel panelMatrix;
+    private JButton buttonNext;
     private SGlobalTarget target;
     private RTable table;
 
-    public SScenarioMatrix(StartWindow start, SGlobalTarget target) {
+    public STargetMatrix(StartWindow start, SGlobalTarget target) {
 
         this.target = target;
         setContentPane(contentPane);
@@ -60,11 +60,11 @@ public class SScenarioMatrix extends JDialog {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            target.addScenarioMatrix(table.getMatrix());
+            target.addTargetMatrix(table.getMatrix());
             current++;
 
             if (current >= target.getTargets().size()) {
-                labelMatrixForActor.setText("Всі матриці введено");
+                labelTitle.setText("Всі матриці введено");
                 buttonNext.setEnabled(false);
                 return;
             }
@@ -74,7 +74,7 @@ public class SScenarioMatrix extends JDialog {
     }
 
     private void initMatrixInputForActor(int current) {
-        labelMatrixForActor.setText("Введіть сценарій для цілі: " + target.getTargets().get(current));
+        labelTitle.setText("Введіть оцінки для актора: " + target.getTargets().get(current));
 
         panelMatrix.removeAll();
         panelMatrix.validate();
