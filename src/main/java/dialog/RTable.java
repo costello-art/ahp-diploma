@@ -55,25 +55,6 @@ public class RTable extends JTable {
                 matrix[i - 1][j - 1] = Float.parseFloat(getModel().getValueAt(i, j).toString());
             }
         }
-
-        int range = (9 - 2) + 1;
-
-
-        for (int i = 1; i < size; i++) {
-            for (int j = i; j < size; j++) {
-                if (j == i) {
-                    getModel().setValueAt(1, i, j);
-                }
-                else {
-                    int value = (int) (Math.random() * range) + 2;
-                    getModel().setValueAt(value, i, j);
-                    getModel().setValueAt(1./value, j, i);
-                }
-
-                matrix[i - 1][j - 1] = Float.parseFloat(getModel().getValueAt(i, j).toString());
-                matrix[j - 1][i - 1] = Float.parseFloat(getModel().getValueAt(j, i).toString());
-            }
-        }
     }
 
     public double[][] getMatrix() {

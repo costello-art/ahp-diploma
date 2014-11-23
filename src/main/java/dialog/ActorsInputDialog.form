@@ -47,7 +47,7 @@
           </grid>
         </constraints>
         <properties>
-          <text value="t1&#10;t2&#10;t3"/>
+          <text value=""/>
         </properties>
       </component>
       <component id="ae7a4" class="javax.swing.JLabel" binding="labelActorCount">
@@ -81,7 +81,7 @@
           </grid>
         </constraints>
         <properties>
-          <text value="act"/>
+          <text value=""/>
         </properties>
       </component>
     </children>

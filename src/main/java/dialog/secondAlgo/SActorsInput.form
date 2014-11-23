@@ -68,7 +68,7 @@
                 <constraints/>
                 <properties>
                   <lineWrap value="true"/>
-                  <text value="a1&#10;a2&#10;a3"/>
+                  <text value=""/>
                 </properties>
               </component>
             </children>

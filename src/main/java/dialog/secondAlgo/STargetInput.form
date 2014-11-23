@@ -59,7 +59,7 @@
               <component id="c9b08" class="javax.swing.JTextArea" binding="textAreaTarget">
                 <constraints/>
                 <properties>
-                  <text value="t1&#10;t2&#10;t3&#10;t4&#10;t5"/>
+                  <text value=""/>
                 </properties>
               </component>
             </children>
