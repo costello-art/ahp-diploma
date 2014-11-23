@@ -163,7 +163,7 @@ public class Calculate {
         double[] arrayResult = multiply(m, v);
 
         for (double anArrayResult : arrayResult) {
-            resultVector.add(anArrayResult);
+            resultVector.add(anArrayResult / 100.0);
         }
 
         return resultVector;
