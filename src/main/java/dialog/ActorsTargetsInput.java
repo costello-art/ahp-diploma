@@ -1,6 +1,6 @@
 package dialog;
 
-import model.Actor;
+import model.DConfig;
 import model.GlobalTarget;
 import util.Calculate;
 import net.miginfocom.swing.MigLayout;
@@ -10,7 +10,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.Map;
 
 /**
@@ -30,6 +29,8 @@ public class ActorsTargetsInput extends JDialog {
 
     private RTable table;
 
+    private int actorMax = 2;
+
     public ActorsTargetsInput(StartWindow startWindow, GlobalTarget target) {
         this.target = target;
         setLocationRelativeTo(startWindow);
@@ -39,15 +40,26 @@ public class ActorsTargetsInput extends JDialog {
 
         panelActorsTargets.setLayout(migLayout);
 
-        labelActorsTargetsInput.setText(
-                String.format("<html>Потрібно ввести матрицю цілей для двох кращих акторів: <b>%s</b> та <b>%s</b></html>",
-                        target.getActorsList().get(0).getName(),
-                        target.getActorsList().get(1).getName()));
+        initTitleAndLimits();
 
         labelMatrixForActor.setText("Матриця цілей для актора " + target.getActorsList().get(0).getName());
         buttonNextActorTargetsInput.addActionListener(new OnActorsMatrixEntered());
         buttonActorsTargetsInputDone.addActionListener(new OnActorsMatrixEnterDone());
         buildMatrixForCurrentActor(0);
+    }
+
+    private void initTitleAndLimits() {
+        if (!DConfig.isSecondAlgo) {
+            labelActorsTargetsInput.setText(
+                    String.format("<html>Потрібно ввести матрицю цілей для двох кращих акторів: <b>%s</b> та <b>%s</b></html>",
+                            target.getActorsList().get(0).getName(),
+                            target.getActorsList().get(1).getName()));
+            actorMax = 2;
+        } else {
+            labelActorsTargetsInput.setText(
+                    String.format("<html>Потрібно ввести матрицю цілей для всіх акторів</html>"));
+            actorMax = target.getActorsList().size();
+        }
     }
 
     public GlobalTarget display() {
@@ -66,7 +78,7 @@ public class ActorsTargetsInput extends JDialog {
             //лічильник збільшується тут, бо на початку вручну обробили 0
             currentActor++;
 
-            if (currentActor >= 2) {
+            if (currentActor >= actorMax) {
                 buttonNextActorTargetsInput.setText("Матриця цілей для всіх акторів введена.");
                 buttonNextActorTargetsInput.setEnabled(false);
                 return;
@@ -92,11 +104,13 @@ public class ActorsTargetsInput extends JDialog {
     private class OnActorsMatrixEnterDone implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            Map<String, Double> v1 = target.getActorsList().get(0).getBestActorsWeightValues();
-            Map<String, Double> v2 = target.getActorsList().get(1).getBestActorsWeightValues();
-            Map<String, Double> bestVector = Calculate.buildAndNormalizeVectorOfBestTargets(v1, v2);
+            if (!DConfig.isSecondAlgo) {
+                Map<String, Double> v1 = target.getActorsList().get(0).getBestActorsWeightValues();
+                Map<String, Double> v2 = target.getActorsList().get(1).getBestActorsWeightValues();
+                Map<String, Double> bestVector = Calculate.buildAndNormalizeVectorOfBestTargets(v1, v2);
 
-            target.setBestTargetsForActors(bestVector);
+                target.setBestTargetsForActors(bestVector);
+            }
 
             dispose();
         }

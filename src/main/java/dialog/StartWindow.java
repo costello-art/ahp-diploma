@@ -1,5 +1,9 @@
 package dialog;
 
+import dialog.secondAlgo.SActorsInput;
+import dialog.secondAlgo.SScenarioInput;
+import dialog.secondAlgo.SScenarioMatrix;
+import dialog.secondAlgo.STargetInput;
 import model.GlobalTarget;
 import util.Calculate;
 import net.miginfocom.swing.MigLayout;
@@ -25,6 +29,7 @@ public class StartWindow extends JFrame {
     private JPanel panelRoot;
     private JPanel panelMatrix;
     private JButton buttonStartScenarioInput;
+    private JButton buttonRunSecond;
     private GlobalTarget target;
     private RTable actorTargetMatrix;
 
@@ -46,6 +51,8 @@ public class StartWindow extends JFrame {
         buttonAddActors.addActionListener(new OpenActorInputDialog(this));
         buttonActorTargetMatrixInputDone.addActionListener(new OpenActorsTargetsInput(this));
         buttonStartScenarioInput.addActionListener(new StartScenarioInput(this));
+
+        buttonRunSecond.addActionListener(new RunSecond(this));
     }
 
     private class OpenActorInputDialog implements ActionListener {
@@ -113,6 +120,23 @@ public class StartWindow extends JFrame {
             new ShowResultDialog(startWindow, target).display();
 
           //  target.printResult(finalVector);
+        }
+    }
+
+    private class RunSecond implements ActionListener {
+        private StartWindow startWindow;
+
+        public RunSecond(StartWindow startWindow) {
+            this.startWindow = startWindow;
+            target = new GlobalTarget("name");
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            target = new SActorsInput(startWindow, target).display();
+            target = new STargetInput(startWindow, target).display();
+            target = new SScenarioInput(startWindow, target).display();
+            target = new SScenarioMatrix(startWindow, target).display();
         }
     }
 }

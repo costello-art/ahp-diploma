@@ -23,6 +23,8 @@ public class GlobalTarget extends Target implements Serializable {
     private ArrayList<double[][]> scenarioMatrixForBestTarget;
     private ArrayList<Scenario> scenarioList;
     private ArrayList<Double> finalVector;
+    private ArrayList<String> targetsForAllActors = new ArrayList<>();
+    private ArrayList<String> scenarioForAllActors = new ArrayList<>();
 
     /**
      * Глобальна мета, яка містить акторів та їх цілі
@@ -146,5 +148,21 @@ public class GlobalTarget extends Target implements Serializable {
 
     public ArrayList<Double> getFinalVector() {
         return finalVector;
+    }
+
+    public void addTargetForAll(String line) {
+        targetsForAllActors.add(line);
+    }
+
+    public ArrayList<String> getTargetForAll() {
+        return targetsForAllActors;
+    }
+
+    public void addScenario(String line) {
+        scenarioForAllActors.add(line);
+    }
+
+    public ArrayList<String> getScenarioForAll() {
+        return scenarioForAllActors;
     }
 }
