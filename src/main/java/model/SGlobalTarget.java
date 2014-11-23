@@ -88,8 +88,8 @@ public class SGlobalTarget {
         return scenariosMatrices;
     }
 
-    public void setScenariosMatrices(ArrayList<double[][]> scenariosMatrices) {
-        this.scenariosMatrices = scenariosMatrices;
+    public void addScenarioMatrix(double[][] scenariosMatrix) {
+        scenariosMatrices.add(scenariosMatrix);
     }
 
     public double[][] getMatrixFromScenariosSelfVectors() {

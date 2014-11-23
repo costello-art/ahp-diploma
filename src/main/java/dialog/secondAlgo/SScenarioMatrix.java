@@ -2,7 +2,6 @@ package dialog.secondAlgo;
 
 import dialog.RTable;
 import dialog.StartWindow;
-import model.GlobalTarget;
 import model.SGlobalTarget;
 import org.apache.log4j.Logger;
 
@@ -19,7 +18,7 @@ public class SScenarioMatrix extends JDialog {
     private JLabel labelMatrixForActor;
     private JButton buttonNext;
     private JPanel panelMatrix;
-    private GlobalTarget target;
+    private SGlobalTarget target;
     private RTable table;
 
     public SScenarioMatrix(StartWindow start, SGlobalTarget target) {
@@ -59,7 +58,7 @@ public class SScenarioMatrix extends JDialog {
         public void actionPerformed(ActionEvent e) {
             current++;
 
-            if (current > target.getActorsList().size()) {
+            if (current > target.getActors().size()) {
                 labelMatrixForActor.setText("Всі матриці введено");
                 buttonNext.setEnabled(false);
                 return;
@@ -72,13 +71,13 @@ public class SScenarioMatrix extends JDialog {
     }
 
     private void initMatrixInputForActor(int current) {
-        labelMatrixForActor.setText("Введіть матрицю для цілі: " + target.getTargetForAll().get(0));
+        labelMatrixForActor.setText("Введіть матрицю для цілі: " + target.getTargets().get(current));
 
         panelMatrix.removeAll();
         panelMatrix.validate();
         panelMatrix.repaint();
 
-        table = new RTable(target.getActorsNames());
+        table = new RTable(target.getActors());
         panelMatrix.add(table);
 
         panelMatrix.validate();
