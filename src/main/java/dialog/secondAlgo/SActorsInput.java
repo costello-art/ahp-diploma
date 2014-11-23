@@ -21,6 +21,7 @@ public class SActorsInput extends JDialog {
         getRootPane().setDefaultButton(buttonOK);
         setLocationRelativeTo(start);
 
+        setTitle("Актори");
         setSize(new Dimension(320, 240));
 
         buttonOK.addActionListener(new ActionListener() {
