@@ -224,7 +224,7 @@ public class Calculate {
         return y;
     }
 
-    public double[][] multiplyMatrix(double[][] first, double[][] second) {
+    public static double[][] multiplyMatrix(double[][] first, double[][] second) {
         int row_first, col_first, row_second, col_second;
         double sum = 0;
 

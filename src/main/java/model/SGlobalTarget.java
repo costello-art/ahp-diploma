@@ -1,6 +1,9 @@
 package model;
 
+import util.Calculate;
+
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Created by Sviat on 23.11.14.
@@ -22,7 +25,7 @@ public class SGlobalTarget {
     private double[][] matrixFromScenariosSelfVectors;
     private double[][] matrixFromTargetsSelfVectors;
 
-    private ArrayList<Double> result;
+    private double[] result;
 
     public SGlobalTarget(String name) {
         this.name = name;
@@ -109,6 +112,24 @@ public class SGlobalTarget {
     }
 
     public void calculate() {
-        result = null;
+        actorsSelfVector = Calculate.selfVectorForMatrix(actorsMatrix);
+
+        matrixFromScenariosSelfVectors = Calculate.buildMatrixFromVectors(scenariosMatrices, scenariosMatrices.get(0)[0].length);
+        matrixFromTargetsSelfVectors = Calculate.buildMatrixFromVectors(targetsMatrices, targetsMatrices.get(0)[0].length);
+
+        double[][] sceOnTar = Calculate.multiplyMatrix(matrixFromTargetsSelfVectors, matrixFromScenariosSelfVectors);
+
+
+        double[] selfArray = new double[actorsSelfVector.size()];
+
+        for (int i = 0; i < selfArray.length; i++) {
+            selfArray[i] = actorsSelfVector.get(i);
+        }
+
+        result = Calculate.multiply(sceOnTar, selfArray);
+    }
+
+    public double[] getResult() {
+        return result;
     }
 }
