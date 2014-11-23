@@ -25,5 +25,8 @@
         <module name="Goroshko" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="Goroshko" target="1.7" />
+    </bytecodeTargetLevel>
   </component>
 </project>
