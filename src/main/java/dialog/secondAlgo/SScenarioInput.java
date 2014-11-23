@@ -1,7 +1,6 @@
 package dialog.secondAlgo;
 
 import dialog.StartWindow;
-import model.GlobalTarget;
 import model.SGlobalTarget;
 
 import javax.swing.*;
@@ -13,7 +12,7 @@ public class SScenarioInput extends JDialog {
     private JPanel contentPane;
     private JButton buttonOK;
     private JTextArea textAreaScenario;
-    private GlobalTarget target;
+    private SGlobalTarget target;
 
     public SScenarioInput(StartWindow startWindow, SGlobalTarget target) {
         this.target = target;
@@ -32,9 +31,10 @@ public class SScenarioInput extends JDialog {
     }
 
     private void onOK() {
-        for (String line : textAreaScenario.getText().split("\n")) {
-            target.addScenario(line);
+        for (String scenario : textAreaScenario.getText().split("\n")) {
+            target.addScenario(scenario);
         }
+
         dispose();
     }
 

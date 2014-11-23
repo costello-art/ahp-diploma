@@ -32,7 +32,7 @@ public class SActorsInput extends JDialog {
 
     private void onOK() {
         for (String actor : textAreaActors.getText().split("\n")) {
-            target.setActors(actor);
+            target.addActor(actor);
         }
 
         dispose();

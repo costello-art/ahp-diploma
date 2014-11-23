@@ -40,7 +40,7 @@ public class SGlobalTarget {
         return actors;
     }
 
-    public void setActors(String actor) {
+    public void addActor(String actor) {
         actors.add(actor);
     }
 
@@ -56,8 +56,8 @@ public class SGlobalTarget {
         return scenarios;
     }
 
-    public void setScenarios(ArrayList<String> scenarios) {
-        this.scenarios = scenarios;
+    public void addScenario(String scenario) {
+        scenarios.add(scenario);
     }
 
     public double[][] getActorsMatrix() {
