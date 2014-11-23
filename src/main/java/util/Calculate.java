@@ -224,56 +224,6 @@ public class Calculate {
         return y;
     }
 
-    public static double[][] multiplyMatrix(double[][] first, double[][] second) {
-        int row_first, col_first, row_second, col_second;
-        double sum = 0;
-
-        row_first = first.length;
-        col_first = first[0].length;
-
-        row_second = second.length;
-        col_second = second[0].length;
-
-        double[][] result = new double[row_first][col_second];
-
-        for (int i = 0; i < row_first; i++) {
-            for (int j = 0; j < col_second; j++) {
-                for (int k = 0; k < row_second; k++) {
-                    sum = sum + first[i][k] * second[k][j];
-                }
-
-                result[i][j] = sum;
-                sum = 0;
-            }
-        }
-
-        return result;
-    }
-
-    public static double[][] multiplicar(double[][] A, double[][] B) {
-
-        int aRows = A.length;
-        int aColumns = A[0].length;
-        int bRows = B.length;
-        int bColumns = B[0].length;
-
-  /*      if (aColumns != bRows) {
-            throw new IllegalArgumentException("aColumns: " + aColumns + " did not match bRows " + bRows);
-        }*/
-
-        double[][] C = new double[bRows][aColumns];
-
-        for (int i = 0; i < aRows; i++) { // aRow
-            for (int j = 0; j < bColumns; j++) { // bColumn
-                for (int k = 0; k < aColumns; k++) { // aColumn
-                    C[i][j] += A[i][k] * B[k][j];
-                }
-            }
-        }
-
-        return C;
-    }
-
     public static ArrayList<Double> normalizeVector(ArrayList<Double> vector) {
         double sum = 0;
         for (double v : vector) {
