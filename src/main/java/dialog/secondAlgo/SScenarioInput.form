@@ -58,7 +58,9 @@
             <children>
               <component id="44167" class="javax.swing.JTextArea" binding="textAreaScenario">
                 <constraints/>
-                <properties/>
+                <properties>
+                  <text value="s1&#10;s2&#10;s3&#10;s4"/>
+                </properties>
               </component>
             </children>
           </scrollpane>

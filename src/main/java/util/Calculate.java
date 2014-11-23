@@ -2,6 +2,7 @@ package util;
 
 import model.Scenario;
 import org.apache.log4j.Logger;
+import org.ejml.simple.SimpleMatrix;
 
 import java.util.*;
 
@@ -248,5 +249,29 @@ public class Calculate {
         }
 
         return result;
+    }
+
+    public static double[][] multiplicar(double[][] A, double[][] B) {
+
+        int aRows = A.length;
+        int aColumns = A[0].length;
+        int bRows = B.length;
+        int bColumns = B[0].length;
+
+  /*      if (aColumns != bRows) {
+            throw new IllegalArgumentException("aColumns: " + aColumns + " did not match bRows " + bRows);
+        }*/
+
+        double[][] C = new double[bRows][aColumns];
+
+        for (int i = 0; i < aRows; i++) { // aRow
+            for (int j = 0; j < bColumns; j++) { // bColumn
+                for (int k = 0; k < aColumns; k++) { // aColumn
+                    C[i][j] += A[i][k] * B[k][j];
+                }
+            }
+        }
+
+        return C;
     }
 }

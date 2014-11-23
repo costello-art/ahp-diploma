@@ -1,5 +1,6 @@
 package model;
 
+import org.ejml.simple.SimpleMatrix;
 import util.Calculate;
 
 import java.util.ArrayList;
@@ -114,10 +115,20 @@ public class SGlobalTarget {
     public void calculate() {
         actorsSelfVector = Calculate.selfVectorForMatrix(actorsMatrix);
 
-        matrixFromScenariosSelfVectors = Calculate.buildMatrixFromVectors(scenariosMatrices, targets.size());
-        matrixFromTargetsSelfVectors = Calculate.buildMatrixFromVectors(targetsMatrices, targets.size());
+        matrixFromScenariosSelfVectors = Calculate.buildMatrixFromVectors(scenariosMatrices, scenariosMatrices.size());
+        matrixFromTargetsSelfVectors = Calculate.buildMatrixFromVectors(targetsMatrices, targetsMatrices.size());
 
-        double[][] sceOnTar = Calculate.multiplyMatrix(matrixFromTargetsSelfVectors, matrixFromScenariosSelfVectors);
+        SimpleMatrix a = new SimpleMatrix(matrixFromScenariosSelfVectors);
+        SimpleMatrix b = new SimpleMatrix(matrixFromTargetsSelfVectors);
+        SimpleMatrix ab = a.mult(b);
+
+        double[][] sceOnTar = new double[ab.numRows()][ab.numCols()];
+
+        for (int i = 0; i < ab.numRows(); i++) {
+            for (int j = 0; j < ab.numCols(); j++) {
+                sceOnTar[i][j] = ab.get(i, j);
+            }
+        }
 
         double[] selfArray = new double[actorsSelfVector.size()];
 

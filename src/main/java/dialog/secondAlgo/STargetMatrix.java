@@ -63,7 +63,7 @@ public class STargetMatrix extends JDialog {
             target.addTargetMatrix(table.getMatrix());
             current++;
 
-            if (current >= target.getTargets().size()) {
+            if (current >= target.getActors().size()) {
                 labelTitle.setText("Всі матриці введено");
                 buttonNext.setEnabled(false);
                 return;
@@ -74,13 +74,13 @@ public class STargetMatrix extends JDialog {
     }
 
     private void initMatrixInputForActor(int current) {
-        labelTitle.setText("Введіть оцінки для актора: " + target.getTargets().get(current));
+        labelTitle.setText("Введіть оцінки для актора: " + target.getActors().get(current));
 
         panelMatrix.removeAll();
         panelMatrix.validate();
         panelMatrix.repaint();
 
-        table = new RTable(target.getScenarios());
+        table = new RTable(target.getTargets());
         panelMatrix.add(table, "wrap");
 
         panelMatrix.validate();
