@@ -1,5 +1,6 @@
 package dialog;
 
+import model.DConfig;
 import model.GlobalTarget;
 import model.Scenario;
 
@@ -11,11 +12,11 @@ import java.util.Collections;
 
 public class ShowResultDialog extends JDialog {
     private JPanel contentPane;
-    private JButton buttonOK;
-    private JButton buttonCancel;
     private JLabel labelResult;
     private JLabel labelVector;
     private JTextArea textAreaScenarioVector;
+    private JButton buttonContinueModdeling;
+    private JButton buttonClose;
     private GlobalTarget target;
 
     public ShowResultDialog(StartWindow startWindow, GlobalTarget target) {
@@ -23,16 +24,24 @@ public class ShowResultDialog extends JDialog {
 
         setContentPane(contentPane);
         setModal(true);
-        getRootPane().setDefaultButton(buttonOK);
         setLocationRelativeTo(startWindow);
 
-        buttonOK.addActionListener(new ActionListener() {
+        setSize(new Dimension(640, 480));
+
+        buttonContinueModdeling.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
-                onOK();
+                DConfig.isSecondAlgo = true;
+                dispose();
             }
         });
 
-        setSize(new Dimension(640, 480));
+        buttonClose.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+            }
+        });
 
         showResult();
     }
@@ -50,11 +59,6 @@ public class ShowResultDialog extends JDialog {
 
         textAreaScenarioVector.setText(sb.toString());
         labelResult.setText(String.format("Сценарій %s із результатом %f", s.getName(), value));
-    }
-
-    private void onOK() {
-// add your code here
-        dispose();
     }
 
     public void display() {

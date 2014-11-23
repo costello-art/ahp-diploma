@@ -4,7 +4,6 @@ import org.ejml.simple.SimpleMatrix;
 import util.Calculate;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  * Created by Sviat on 23.11.14.
