@@ -152,6 +152,8 @@ public class StartWindow extends JFrame {
 
         public OnMatrixSaved(StartWindow startWindow) {
             this.startWindow = startWindow;
+
+            starget.setActorsMatrix(actorTargetMatrix.getMatrix());
         }
 
         @Override
