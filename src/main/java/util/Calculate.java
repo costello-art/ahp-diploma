@@ -170,7 +170,7 @@ public class Calculate {
         return resultVector;
     }
 
-    private static double[][] buildMatrixFromVectors(ArrayList<double[][]> scenarioMatrices, int size) {
+    public static double[][] buildMatrixFromVectors(ArrayList<double[][]> scenarioMatrices, int size) {
         double[][] matrix = new double[scenarioMatrices.get(0)[0].length][size];
 
         int col = 0;
@@ -222,5 +222,31 @@ public class Calculate {
         }
 
         return y;
+    }
+
+    public double[][] multiplyMatrix(double[][] first, double[][] second) {
+        int row_first, col_first, row_second, col_second;
+        double sum = 0;
+
+        row_first = first.length;
+        col_first = first[0].length;
+
+        row_second = second.length;
+        col_second = second[0].length;
+
+        double[][] result = new double[row_first][col_second];
+
+        for (int i = 0; i < row_first; i++) {
+            for (int j = 0; j < col_second; j++) {
+                for (int k = 0; k < row_second; k++) {
+                    sum = sum + first[i][k] * second[k][j];
+                }
+
+                result[i][j] = sum;
+                sum = 0;
+            }
+        }
+
+        return result;
     }
 }
