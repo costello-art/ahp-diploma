@@ -2,6 +2,7 @@ package dialog.secondAlgo;
 
 import dialog.StartWindow;
 import model.GlobalTarget;
+import model.SGlobalTarget;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +15,7 @@ public class STargetInput extends JDialog {
     private JTextArea textAreaTarget;
     private GlobalTarget target;
 
-    public STargetInput(StartWindow start, GlobalTarget target) {
+    public STargetInput(StartWindow start, SGlobalTarget target) {
         this.target = target;
         setContentPane(contentPane);
         setModal(true);
@@ -37,7 +38,7 @@ public class STargetInput extends JDialog {
         dispose();
     }
 
-    public GlobalTarget display() {
+    public SGlobalTarget display() {
         return target;
     }
 }

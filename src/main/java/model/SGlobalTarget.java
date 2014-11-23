@@ -40,8 +40,8 @@ public class SGlobalTarget {
         return actors;
     }
 
-    public void setActors(ArrayList<String> actors) {
-        this.actors = actors;
+    public void setActors(String actor) {
+        actors.add(actor);
     }
 
     public ArrayList<String> getTargets() {

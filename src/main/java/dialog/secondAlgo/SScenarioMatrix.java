@@ -3,6 +3,7 @@ package dialog.secondAlgo;
 import dialog.RTable;
 import dialog.StartWindow;
 import model.GlobalTarget;
+import model.SGlobalTarget;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;
@@ -21,7 +22,7 @@ public class SScenarioMatrix extends JDialog {
     private GlobalTarget target;
     private RTable table;
 
-    public SScenarioMatrix(StartWindow start, GlobalTarget target) {
+    public SScenarioMatrix(StartWindow start, SGlobalTarget target) {
 
         this.target = target;
         setContentPane(contentPane);
@@ -46,7 +47,7 @@ public class SScenarioMatrix extends JDialog {
         dispose();
     }
 
-    public GlobalTarget display() {
+    public SGlobalTarget display() {
         setVisible(true);
         return target;
     }

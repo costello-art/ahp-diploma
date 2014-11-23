@@ -5,6 +5,7 @@ import dialog.secondAlgo.SScenarioInput;
 import dialog.secondAlgo.SScenarioMatrix;
 import dialog.secondAlgo.STargetInput;
 import model.GlobalTarget;
+import model.SGlobalTarget;
 import util.Calculate;
 import net.miginfocom.swing.MigLayout;
 import org.apache.log4j.Logger;
@@ -22,6 +23,7 @@ import java.util.ArrayList;
 public class StartWindow extends JFrame {
     final static Logger log = Logger.getLogger(StartWindow.class);
     private static MigLayout migLayout = new MigLayout("ins 0, hidemode 3", "", "[][][]");
+    private SGlobalTarget starget;
 
     private JTextField textFieldTarget;
     private JButton buttonAddActors;
@@ -128,15 +130,15 @@ public class StartWindow extends JFrame {
 
         public RunSecond(StartWindow startWindow) {
             this.startWindow = startWindow;
-            target = new GlobalTarget("name");
+            starget = new SGlobalTarget("name");
         }
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            target = new SActorsInput(startWindow, target).display();
-            target = new STargetInput(startWindow, target).display();
-            target = new SScenarioInput(startWindow, target).display();
-            target = new SScenarioMatrix(startWindow, target).display();
+            starget = new SActorsInput(startWindow, starget).display();
+            starget = new STargetInput(startWindow, starget).display();
+            starget = new SScenarioInput(startWindow, starget).display();
+            starget = new SScenarioMatrix(startWindow, starget).display();
         }
     }
 }

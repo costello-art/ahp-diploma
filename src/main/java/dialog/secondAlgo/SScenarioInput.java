@@ -2,6 +2,7 @@ package dialog.secondAlgo;
 
 import dialog.StartWindow;
 import model.GlobalTarget;
+import model.SGlobalTarget;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +15,7 @@ public class SScenarioInput extends JDialog {
     private JTextArea textAreaScenario;
     private GlobalTarget target;
 
-    public SScenarioInput(StartWindow startWindow, GlobalTarget target) {
+    public SScenarioInput(StartWindow startWindow, SGlobalTarget target) {
         this.target = target;
         setContentPane(contentPane);
         setModal(true);
@@ -37,7 +38,7 @@ public class SScenarioInput extends JDialog {
         dispose();
     }
 
-    public GlobalTarget display() {
+    public SGlobalTarget display() {
         setVisible(true);
         return target;
     }

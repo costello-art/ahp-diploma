@@ -1,7 +1,7 @@
 package dialog.secondAlgo;
 
 import dialog.StartWindow;
-import model.GlobalTarget;
+import model.SGlobalTarget;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,9 +12,9 @@ public class SActorsInput extends JDialog {
     private JPanel contentPane;
     private JButton buttonOK;
     private JTextArea textAreaActors;
-    private GlobalTarget target;
+    private SGlobalTarget target;
 
-    public SActorsInput(StartWindow start, GlobalTarget target) {
+    public SActorsInput(StartWindow start, SGlobalTarget target) {
         this.target = target;
         setContentPane(contentPane);
         setModal(true);
@@ -31,14 +31,14 @@ public class SActorsInput extends JDialog {
     }
 
     private void onOK() {
-
-        for (String line : textAreaActors.getText().split("\n")) {
-            target.addActor(line, null);
+        for (String actor : textAreaActors.getText().split("\n")) {
+            target.setActors(actor);
         }
+
         dispose();
     }
 
-    public GlobalTarget display() {
+    public SGlobalTarget display() {
         setVisible(true);
         return target;
     }
