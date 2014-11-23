@@ -1,7 +1,6 @@
 package dialog.secondAlgo;
 
 import dialog.StartWindow;
-import model.GlobalTarget;
 import model.SGlobalTarget;
 
 import javax.swing.*;
@@ -13,7 +12,7 @@ public class STargetInput extends JDialog {
     private JPanel contentPane;
     private JButton buttonOK;
     private JTextArea textAreaTarget;
-    private GlobalTarget target;
+    private SGlobalTarget target;
 
     public STargetInput(StartWindow start, SGlobalTarget target) {
         this.target = target;
@@ -31,8 +30,8 @@ public class STargetInput extends JDialog {
     }
 
     private void onOK() {
-        for(String line : textAreaTarget.getText().split("\n")) {
-            target.addTargetForAll(line);
+        for(String targetName : textAreaTarget.getText().split("\n")) {
+            target.addTarget(targetName);
         }
 
         dispose();

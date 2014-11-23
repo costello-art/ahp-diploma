@@ -48,8 +48,8 @@ public class SGlobalTarget {
         return targets;
     }
 
-    public void setTargets(ArrayList<String> targets) {
-        this.targets = targets;
+    public void addTarget(String target) {
+        targets.add(target);
     }
 
     public ArrayList<String> getScenarios() {
