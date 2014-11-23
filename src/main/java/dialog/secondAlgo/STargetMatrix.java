@@ -31,6 +31,7 @@ public class STargetMatrix extends JDialog {
         getRootPane().setDefaultButton(buttonOK);
         setLocationRelativeTo(start);
 
+        setTitle("Матриця цілей");
         setSize(new Dimension(320, 240));
 
         panelMatrix.setLayout(migLayout);

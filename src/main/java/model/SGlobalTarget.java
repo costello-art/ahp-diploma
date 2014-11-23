@@ -113,6 +113,7 @@ public class SGlobalTarget {
 
     public void calculate() {
         actorsSelfVector = Calculate.selfVectorForMatrix(actorsMatrix);
+        actorsSelfVector = Calculate.normalizeVector(actorsSelfVector);
 
         matrixFromScenariosSelfVectors = Calculate.buildMatrixFromVectors(scenariosMatrices, scenariosMatrices.size());
         matrixFromTargetsSelfVectors = Calculate.buildMatrixFromVectors(targetsMatrices, targetsMatrices.size());

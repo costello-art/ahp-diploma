@@ -21,6 +21,7 @@ public class SScenarioInput extends JDialog {
         getRootPane().setDefaultButton(buttonOK);
         setLocationRelativeTo(startWindow);
 
+        setTitle("Політики");
         setSize(new Dimension(320, 240));
 
         buttonOK.addActionListener(new ActionListener() {

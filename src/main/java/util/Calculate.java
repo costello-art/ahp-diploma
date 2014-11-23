@@ -1,8 +1,6 @@
 package util;
 
-import model.Scenario;
 import org.apache.log4j.Logger;
-import org.ejml.simple.SimpleMatrix;
 
 import java.util.*;
 
@@ -177,6 +175,7 @@ public class Calculate {
         int col = 0;
         for (double[][] m : scenarioMatrices) {
             ArrayList<Double> selfVector = selfVectorForMatrix(m);
+            selfVector = normalizeVector(selfVector);
 
             for (int i = 0; i < scenarioMatrices.get(0).length; i++) {
                 matrix[i][col] = selfVector.get(i);
@@ -273,5 +272,19 @@ public class Calculate {
         }
 
         return C;
+    }
+
+    public static ArrayList<Double> normalizeVector(ArrayList<Double> vector) {
+        double sum = 0;
+        for (double v : vector) {
+            sum += v;
+        }
+
+        for (int i = 0; i < vector.size(); i++) {
+            double newValue = (float) (vector.get(i) * 100.0 / sum);
+            vector.set(i, newValue);
+        }
+
+        return vector;
     }
 }

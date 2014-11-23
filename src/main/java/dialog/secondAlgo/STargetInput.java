@@ -20,6 +20,7 @@ public class STargetInput extends JDialog {
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
         setLocationRelativeTo(start);
+        setTitle("Цілі");
         setSize(new Dimension(320, 240));
 
         buttonOK.addActionListener(new ActionListener() {

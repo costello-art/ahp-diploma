@@ -31,6 +31,7 @@ public class SScenarioMatrix extends JDialog {
         getRootPane().setDefaultButton(buttonOK);
         setLocationRelativeTo(start);
 
+        setTitle("Матриця політик");
         setSize(new Dimension(320, 240));
 
         panelMatrix.setLayout(migLayout);
@@ -74,7 +75,7 @@ public class SScenarioMatrix extends JDialog {
     }
 
     private void initMatrixInputForActor(int current) {
-        labelMatrixForActor.setText("Введіть сценарій для цілі: " + target.getTargets().get(current));
+        labelMatrixForActor.setText("Введіть політики для цілі: " + target.getTargets().get(current));
 
         panelMatrix.removeAll();
         panelMatrix.validate();

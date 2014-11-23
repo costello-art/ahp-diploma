@@ -26,6 +26,7 @@ public class SShowResult extends JDialog {
         getRootPane().setDefaultButton(buttonOK);
         setLocationRelativeTo(startWindow);
 
+        setTitle("Результат");
         setSize(new Dimension(640, 480));
 
         buttonOK.addActionListener(new ActionListener() {
