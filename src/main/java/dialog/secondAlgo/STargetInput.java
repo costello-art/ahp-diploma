@@ -38,6 +38,7 @@ public class STargetInput extends JDialog {
     }
 
     public SGlobalTarget display() {
+        setVisible(true);
         return target;
     }
 }

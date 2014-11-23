@@ -3,6 +3,7 @@ package dialog.secondAlgo;
 import dialog.RTable;
 import dialog.StartWindow;
 import model.SGlobalTarget;
+import net.miginfocom.swing.MigLayout;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;
@@ -11,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class SScenarioMatrix extends JDialog {
+    private static MigLayout migLayout = new MigLayout("ins 0, hidemode 3", "", "[][][]");
     final static Logger log = Logger.getLogger(SScenarioMatrix.class);
 
     private JPanel contentPane;
@@ -30,6 +32,8 @@ public class SScenarioMatrix extends JDialog {
         setLocationRelativeTo(start);
 
         setSize(new Dimension(320, 240));
+
+        panelMatrix.setLayout(migLayout);
 
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -58,7 +62,7 @@ public class SScenarioMatrix extends JDialog {
         public void actionPerformed(ActionEvent e) {
             current++;
 
-            if (current > target.getActors().size()) {
+            if (current >= target.getActors().size()) {
                 labelMatrixForActor.setText("Всі матриці введено");
                 buttonNext.setEnabled(false);
                 return;
@@ -78,7 +82,7 @@ public class SScenarioMatrix extends JDialog {
         panelMatrix.repaint();
 
         table = new RTable(target.getActors());
-        panelMatrix.add(table);
+        panelMatrix.add(table, "wrap");
 
         panelMatrix.validate();
         panelMatrix.repaint();
