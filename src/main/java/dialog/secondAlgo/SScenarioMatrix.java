@@ -24,24 +24,20 @@ public class SScenarioMatrix extends JDialog {
     private RTable table;
 
     public SScenarioMatrix(StartWindow start, SGlobalTarget target) {
-
         this.target = target;
         setContentPane(contentPane);
-        setModal(true);
-        getRootPane().setDefaultButton(buttonOK);
-        setLocationRelativeTo(start);
-
-        setTitle("Матриця політик");
         setSize(new Dimension(320, 240));
+        setModal(true);
+        setLocationRelativeTo(start);
+        getRootPane().setDefaultButton(buttonOK);
+        setTitle("Матриця політик");
 
         panelMatrix.setLayout(migLayout);
-
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 onOK();
             }
         });
-
         buttonNext.addActionListener(new NextMatrixInput());
 
         initMatrixInputForActor(0);

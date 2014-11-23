@@ -17,11 +17,11 @@ public class STargetInput extends JDialog {
     public STargetInput(StartWindow start, SGlobalTarget target) {
         this.target = target;
         setContentPane(contentPane);
-        setModal(true);
-        getRootPane().setDefaultButton(buttonOK);
-        setLocationRelativeTo(start);
-        setTitle("Цілі");
         setSize(new Dimension(320, 240));
+        setModal(true);
+        setLocationRelativeTo(start);
+        getRootPane().setDefaultButton(buttonOK);
+        setTitle("Цілі");
 
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {

@@ -22,12 +22,11 @@ public class SShowResult extends JDialog {
     public SShowResult(StartWindow startWindow, SGlobalTarget starget) {
         this.starget = starget;
         setContentPane(contentPane);
+        setSize(new Dimension(320, 240));
         setModal(true);
-        getRootPane().setDefaultButton(buttonOK);
         setLocationRelativeTo(startWindow);
-
+        getRootPane().setDefaultButton(buttonOK);
         setTitle("Результат");
-        setSize(new Dimension(640, 480));
 
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {

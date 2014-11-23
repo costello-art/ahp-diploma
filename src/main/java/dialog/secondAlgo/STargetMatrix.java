@@ -24,24 +24,20 @@ public class STargetMatrix extends JDialog {
     private RTable table;
 
     public STargetMatrix(StartWindow start, SGlobalTarget target) {
-
         this.target = target;
         setContentPane(contentPane);
-        setModal(true);
-        getRootPane().setDefaultButton(buttonOK);
-        setLocationRelativeTo(start);
-
-        setTitle("Матриця цілей");
         setSize(new Dimension(320, 240));
+        setModal(true);
+        setLocationRelativeTo(start);
+        getRootPane().setDefaultButton(buttonOK);
+        setTitle("Матриця цілей");
 
         panelMatrix.setLayout(migLayout);
-
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 onOK();
             }
         });
-
         buttonNext.addActionListener(new NextMatrixInput());
 
         initMatrixInputForActor(0);

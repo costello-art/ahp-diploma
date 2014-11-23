@@ -33,13 +33,13 @@ public class ScenarioInputDialog extends JDialog {
 
     public ScenarioInputDialog(StartWindow startWindow, GlobalTarget target) {
         this.target = target;
-        setSize(new Dimension(640, 480));
-        setLocationRelativeTo(startWindow);
+
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setTitle("Введення сценаріїв та їх матриць");
         setContentPane(panelRoot);
+        setSize(new Dimension(640, 480));
         setModal(true);
-
+        setLocationRelativeTo(startWindow);
         panelScenarioInput.setLayout(migLayout);
 
         buttonSaveScenarioList.addActionListener(new SaveScenarioList());

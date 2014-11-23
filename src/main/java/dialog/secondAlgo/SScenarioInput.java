@@ -17,12 +17,11 @@ public class SScenarioInput extends JDialog {
     public SScenarioInput(StartWindow startWindow, SGlobalTarget target) {
         this.target = target;
         setContentPane(contentPane);
-        setModal(true);
-        getRootPane().setDefaultButton(buttonOK);
-        setLocationRelativeTo(startWindow);
-
-        setTitle("Політики");
         setSize(new Dimension(320, 240));
+        setModal(true);
+        setLocationRelativeTo(startWindow);
+        getRootPane().setDefaultButton(buttonOK);
+        setTitle("Політики");
 
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {

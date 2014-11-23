@@ -33,11 +33,12 @@ public class ActorsTargetsInput extends JDialog {
 
     public ActorsTargetsInput(StartWindow startWindow, GlobalTarget target) {
         this.target = target;
-        setLocationRelativeTo(startWindow);
-        setModal(true);
-        setTitle("Матриця цілей для акторів");
-        setSize(new Dimension(640, 480));
         setContentPane(panelRoot);
+        setSize(new Dimension(640, 480));
+        setModal(true);
+        setLocationRelativeTo(startWindow);
+
+        setTitle("Матриця цілей для акторів");
 
         panelActorsTargets.setLayout(migLayout);
 

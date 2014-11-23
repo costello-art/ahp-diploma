@@ -17,12 +17,11 @@ public class SActorsInput extends JDialog {
     public SActorsInput(StartWindow start, SGlobalTarget target) {
         this.target = target;
         setContentPane(contentPane);
-        setModal(true);
-        getRootPane().setDefaultButton(buttonOK);
-        setLocationRelativeTo(start);
-
-        setTitle("Актори");
         setSize(new Dimension(320, 240));
+        setModal(true);
+        setLocationRelativeTo(start);
+        getRootPane().setDefaultButton(buttonOK);
+        setTitle("Актори");
 
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
